@@ -696,6 +696,28 @@
       transition:transform .5s ease;
     }
     .gallery-card:hover img{transform:scale(1.04)}
+    .gallery-card figcaption{
+      position:absolute;
+      left:14px;
+      right:14px;
+      bottom:14px;
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+      padding:13px 14px;
+      border:1px solid rgba(255,255,255,.66);
+      border-radius:18px;
+      background:rgba(255,255,255,.78);
+      box-shadow:0 12px 28px rgba(44,38,48,.13);
+      backdrop-filter:blur(14px);
+      color:var(--ink);
+      font-weight:900;
+    }
+    .gallery-card figcaption span{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.35;
+    }
     .gallery-placeholder{
       height:100%;
       display:flex;
@@ -1174,10 +1196,11 @@
         </div>
         <div class="gallery-grid" id="galleryGrid" aria-live="polite">
           <div class="gallery-card featured">
-            <div class="gallery-placeholder">
-              <strong data-i18n="galleryPlaceholder1">Organisasi & kehidupan kampus</strong>
-              <span data-i18n="galleryPlaceholder1s">Upload foto OMBUS, HIMA, DIGDAYA, atau presentasi.</span>
-            </div>
+            <img src="assets/miracle-public-speaking.jpg" alt="Sandria saat sekolah public speaking di Sekolah Komunikasi Miracle">
+            <figcaption>
+              Public Speaking
+              <span>Sekolah Komunikasi Miracle</span>
+            </figcaption>
           </div>
           <div class="gallery-card">
             <div class="gallery-placeholder">
@@ -1648,19 +1671,29 @@
 
     const galleryInput = document.getElementById('galleryInput');
     const galleryGrid = document.getElementById('galleryGrid');
+    const defaultGalleryPhotos = [{
+      src:'assets/miracle-public-speaking.jpg',
+      alt:'Sandria saat sekolah public speaking di Sekolah Komunikasi Miracle',
+      title:'Public Speaking',
+      meta:'Sekolah Komunikasi Miracle',
+      locked:true
+    }];
     const renderGallery = (photos) => {
       if (!photos.length) return;
-      galleryGrid.innerHTML = photos.map((photo, index) => `
+      const galleryPhotos = [...defaultGalleryPhotos, ...photos.map((photo) => ({src:photo}))];
+      galleryGrid.innerHTML = galleryPhotos.map((photo, index) => `
         <figure class="gallery-card ${index === 0 ? 'featured' : ''}">
-          <img src="${assetUrl(photo)}" alt="Foto kegiatan Sandria ${index + 1}">
-          <button class="gallery-remove owner-only" type="button" data-remove-photo="${index}" aria-label="Hapus foto">x</button>
+          <img src="${assetUrl(photo.src)}" alt="${photo.alt || `Foto kegiatan Sandria ${index + 1}`}">
+          ${photo.title ? `<figcaption>${photo.title}<span>${photo.meta}</span></figcaption>` : ''}
+          ${photo.locked ? '' : `<button class="gallery-remove owner-only" type="button" data-remove-photo="${index - defaultGalleryPhotos.length}" aria-label="Hapus foto">x</button>`}
         </figure>
       `).join('');
       document.querySelectorAll('[data-remove-photo]').forEach((button) => {
         button.addEventListener('click', async () => {
+          const photoIndex = Number(button.dataset.removePhoto);
           if (ownerPin && backendMedia) {
             try {
-              const result = await api.deleteGallery(photos[Number(button.dataset.removePhoto)]);
+              const result = await api.deleteGallery(photos[photoIndex]);
               backendMedia = result.media;
               renderGallery(backendMedia.gallery);
               return;
@@ -1669,7 +1702,7 @@
             }
           }
           const current = JSON.parse(localStorage.getItem('sandria-gallery-photos') || '[]');
-          current.splice(Number(button.dataset.removePhoto), 1);
+          current.splice(photoIndex, 1);
           localStorage.setItem('sandria-gallery-photos', JSON.stringify(current));
           if (current.length) {
             renderGallery(current);
