@@ -8,6 +8,7 @@ const ROOT = __dirname;
 const UPLOAD_DIR = path.join(ROOT, 'uploads');
 const MESSAGES_FILE = path.join(ROOT, 'messages.json');
 const MAX_UPLOAD = 8 * 1024 * 1024;
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || '*';
 
 fs.mkdirSync(UPLOAD_DIR, {recursive: true});
 if (!fs.existsSync(MESSAGES_FILE)) fs.writeFileSync(MESSAGES_FILE, '[]');
@@ -25,8 +26,14 @@ const mimeTypes = {
   '.svg': 'image/svg+xml',
 };
 
+const corsHeaders = {
+  'access-control-allow-origin': ALLOWED_ORIGIN,
+  'access-control-allow-methods': 'GET,POST,DELETE,OPTIONS',
+  'access-control-allow-headers': 'content-type',
+};
+
 const sendJson = (res, status, body) => {
-  res.writeHead(status, {'content-type': 'application/json; charset=utf-8'});
+  res.writeHead(status, {'content-type': 'application/json; charset=utf-8', ...corsHeaders});
   res.end(JSON.stringify(body));
 };
 
@@ -207,13 +214,19 @@ const serveFile = (res, filePath) => {
   }
 
   const ext = path.extname(filePath).toLowerCase();
-  res.writeHead(200, {'content-type': mimeTypes[ext] || 'application/octet-stream'});
+  res.writeHead(200, {'content-type': mimeTypes[ext] || 'application/octet-stream', ...corsHeaders});
   fs.createReadStream(filePath).pipe(res);
 };
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const pathname = decodeURIComponent(url.pathname);
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204, corsHeaders);
+    res.end();
+    return;
+  }
 
   if (req.method === 'GET' && pathname === '/api/media') return sendJson(res, 200, listMedia());
   if (req.method === 'POST' && pathname === '/api/verify') return handleVerify(req, res);

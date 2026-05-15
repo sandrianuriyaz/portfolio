@@ -2,9 +2,12 @@
 <html lang="id">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Portofolio Sandria Nuriya Az Zahra, fullstack web developer dengan fokus React, Node.js, real-time app, dan AI integration.">
-  <title>Sandria Nuriya Az Zahra - Fullstack Developer Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Portofolio Sandria Nuriya Az Zahra, fullstack web developer dengan fokus React, Node.js, real-time app, dan AI integration.">
+    <title>Sandria Nuriya Az Zahra - Fullstack Developer Portfolio</title>
+    <script>
+      window.PORTFOLIO_API_BASE = '';
+    </script>
   <style>
     :root{
       --ink:#2c2630;
@@ -1418,14 +1421,21 @@
       if (event.altKey && event.shiftKey && event.key.toLowerCase() === 'o') requestOwnerMode();
     });
 
+    const API_BASE = (window.PORTFOLIO_API_BASE || '').replace(/\/$/, '');
+    const apiUrl = (path) => `${API_BASE}${path}`;
+    const assetUrl = (url) => {
+      if (!url || url.startsWith('data:') || /^https?:\/\//.test(url)) return url;
+      return `${API_BASE}${url}`;
+    };
+
     const api = {
       async media(){
-        const response = await fetch('/api/media');
+        const response = await fetch(apiUrl('/api/media'));
         if (!response.ok) throw new Error('Backend belum aktif.');
         return response.json();
       },
       async verify(pin){
-        const response = await fetch('/api/verify', {
+        const response = await fetch(apiUrl('/api/verify'), {
           method:'POST',
           headers:{'content-type':'application/json'},
           body:JSON.stringify({pin})
@@ -1438,18 +1448,18 @@
         form.append('type', type);
         if (project) form.append('project', project);
         form.append('file', file);
-        const response = await fetch('/api/upload', {method:'POST', body:form});
+        const response = await fetch(apiUrl('/api/upload'), {method:'POST', body:form});
         if (!response.ok) throw new Error('Upload backend gagal.');
         return response.json();
       },
       async deleteGallery(url){
         const filename = url.split('/').pop();
-        const response = await fetch(`/api/gallery/${encodeURIComponent(filename)}?pin=${encodeURIComponent(ownerPin)}`, {method:'DELETE'});
+        const response = await fetch(apiUrl(`/api/gallery/${encodeURIComponent(filename)}?pin=${encodeURIComponent(ownerPin)}`), {method:'DELETE'});
         if (!response.ok) throw new Error('Hapus foto backend gagal.');
         return response.json();
       },
       async message(payload){
-        const response = await fetch('/api/message', {
+        const response = await fetch(apiUrl('/api/message'), {
           method:'POST',
           headers:{'content-type':'application/json'},
           body:JSON.stringify(payload)
@@ -1557,7 +1567,7 @@
     const photoPreview = document.getElementById('photoPreview');
     const photoAvatar = document.getElementById('photoAvatar');
     const setProfilePhoto = (image) => {
-      photoPreview.src = image;
+      photoPreview.src = assetUrl(image);
       photoAvatar.classList.add('has-photo');
     };
     const savedPhoto = localStorage.getItem('sandria-profile-photo');
@@ -1591,7 +1601,7 @@
       const preview = document.querySelector(`[data-project-preview="${project}"]`);
       const img = document.querySelector(`[data-project-image="${project}"]`);
       if (!preview || !img) return;
-      img.src = image;
+      img.src = assetUrl(image);
       preview.classList.add('has-image');
     };
     document.querySelectorAll('[data-project-input]').forEach((input) => {
@@ -1642,7 +1652,7 @@
       if (!photos.length) return;
       galleryGrid.innerHTML = photos.map((photo, index) => `
         <figure class="gallery-card ${index === 0 ? 'featured' : ''}">
-          <img src="${photo}" alt="Foto kegiatan Sandria ${index + 1}">
+          <img src="${assetUrl(photo)}" alt="Foto kegiatan Sandria ${index + 1}">
           <button class="gallery-remove owner-only" type="button" data-remove-photo="${index}" aria-label="Hapus foto">x</button>
         </figure>
       `).join('');
