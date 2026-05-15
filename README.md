@@ -8,17 +8,21 @@ npm run dev
 
 Open `http://localhost:3000`.
 
-## Frontend on Vercel + Backend on Render/Railway
+## Vercel Frontend + Vercel Backend
 
-The Vercel deploy is static. Host `server.js` separately on a Node hosting service such as Render or Railway.
+This project includes Vercel API routes in `api/`, so the backend can run on Vercel too.
 
-Backend settings:
+Vercel environment variables:
 
-- Start command: `npm start`
-- Environment variable: `OWNER_PIN`
-- Optional environment variable: `ALLOWED_ORIGIN` set to your Vercel domain
+- `OWNER_PIN`
+- `BLOB_READ_WRITE_TOKEN`
+- Optional: `ALLOWED_ORIGIN`
 
-After the backend is deployed, edit `index.html`:
+Use Vercel Blob for uploaded photos and messages. In Vercel, create/connect a Blob store, then redeploy.
+
+## Separate Backend Hosting
+
+If the backend is hosted separately from the frontend, edit `index.html`:
 
 ```html
 <script>
@@ -28,4 +32,4 @@ After the backend is deployed, edit `index.html`:
 
 Then commit and push again so the Vercel frontend uses the hosted backend.
 
-Messages are saved in `messages.json`; uploaded images are saved in `uploads/`.
+Local backend messages are saved in `messages.json`; local uploaded images are saved in `uploads/`.
