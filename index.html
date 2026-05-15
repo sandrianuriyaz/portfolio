@@ -1,0 +1,1718 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portofolio Sandria Nuriya Az Zahra, fullstack web developer dengan fokus React, Node.js, real-time app, dan AI integration.">
+  <title>Sandria Nuriya Az Zahra - Fullstack Developer Portfolio</title>
+  <style>
+    :root{
+      --ink:#2c2630;
+      --text:#3f3740;
+      --muted:#7d7078;
+      --line:#eadfe2;
+      --bg:#fffaf7;
+      --paper:#ffffff;
+      --green:#6f8f78;
+      --leaf:#eef5ed;
+      --blue:#7d7fa9;
+      --red:#c96f7e;
+      --yellow:#e7bd76;
+      --rose:#f5d9dc;
+      --blush:#fff0ef;
+      --mauve:#8e6c80;
+      --shadow:0 22px 70px rgba(92,62,75,.14);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Plus Jakarta Sans",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 9% 8%,rgba(245,217,220,.72),transparent 28%),
+        radial-gradient(circle at 90% 18%,rgba(238,245,237,.86),transparent 30%),
+        linear-gradient(180deg,#fffaf7 0%,var(--bg) 48%,#fbf2ee 100%);
+      color:var(--text);
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    .flower-field{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    .flower{
+      position:absolute;
+      top:-12vh;
+      left:var(--x);
+      width:var(--s);
+      height:var(--s);
+      opacity:var(--o);
+      animation:flowerFall var(--d) linear infinite;
+      animation-delay:var(--delay);
+      transform:translate3d(var(--repel-x,0px),var(--repel-y,0px),0) rotate(var(--r)) scale(var(--repel-scale,1));
+      filter:drop-shadow(0 8px 10px rgba(201,111,126,.18));
+      will-change:transform;
+    }
+    .flower::before,
+    .flower::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at 50% 18%,rgba(230,123,143,.96) 0 22%,transparent 24%),
+        radial-gradient(circle at 82% 50%,rgba(244,170,182,.94) 0 22%,transparent 24%),
+        radial-gradient(circle at 50% 82%,rgba(236,137,154,.9) 0 22%,transparent 24%),
+        radial-gradient(circle at 18% 50%,rgba(244,170,182,.94) 0 22%,transparent 24%),
+        radial-gradient(circle at 50% 50%,rgba(231,189,118,.9) 0 12%,transparent 14%);
+      border-radius:50%;
+    }
+    .flower::after{
+      transform:rotate(45deg);
+      opacity:.58;
+    }
+
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    main,footer{position:relative;z-index:1}
+    .container{width:min(1160px,calc(100% - 32px));margin:0 auto}
+    .icon{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+    .nav-wrap{
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:rgba(251,252,247,.88);
+      border-bottom:1px solid rgba(220,228,234,.8);
+      backdrop-filter:blur(16px);
+    }
+    .nav{
+      min-height:70px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+      color:var(--ink);
+      letter-spacing:0;
+    }
+    .logo-mark{
+      width:38px;
+      height:38px;
+      position:relative;
+      display:block;
+      background:#fff7f6;
+      color:transparent;
+      border-radius:999px;
+      box-shadow:0 8px 18px rgba(86,56,70,.14);
+      border:1px solid #eadfe2;
+    }
+    .logo-mark::before,
+    .logo-mark::after{
+      content:"";
+      position:absolute;
+      inset:7px;
+      background:
+        radial-gradient(circle at 50% 13%,#b76f8a 0 20%,transparent 22%),
+        radial-gradient(circle at 87% 50%,#cf879b 0 20%,transparent 22%),
+        radial-gradient(circle at 50% 87%,#b76f8a 0 20%,transparent 22%),
+        radial-gradient(circle at 13% 50%,#cf879b 0 20%,transparent 22%),
+        radial-gradient(circle at 50% 50%,#e7bd76 0 12%,transparent 14%);
+      border-radius:50%;
+    }
+    .logo-mark::after{
+      transform:rotate(45deg);
+      opacity:.65;
+    }
+    .nav-menu{display:flex;align-items:center;gap:4px;color:var(--muted);font-size:14px;font-weight:750}
+    .nav-menu a{padding:8px 11px;border-radius:7px}
+    .nav-menu a:hover{background:var(--leaf);color:var(--ink)}
+    .nav-actions{display:flex;align-items:center;gap:8px}
+    .lang{
+      display:flex;
+      gap:3px;
+      padding:3px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#fff;
+    }
+    .lang button{
+      border:0;
+      width:38px;
+      height:30px;
+      border-radius:6px;
+      background:transparent;
+      color:var(--muted);
+      cursor:pointer;
+      font-weight:850;
+    }
+    .lang button.active{background:var(--ink);color:#fff}
+    body:not(.owner-mode) .owner-only{display:none!important}
+
+    .btn{
+      min-height:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      padding:0 16px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#fff;
+      color:var(--ink);
+      font-size:14px;
+      font-weight:850;
+      cursor:pointer;
+      box-shadow:0 8px 20px rgba(24,34,47,.06);
+    }
+    .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+    .btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+    .btn:hover{transform:translateY(-1px)}
+    .btn,.work-card,.skill-card,.contact-item{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease,opacity .25s ease}
+
+    .hero{
+      min-height:calc(100vh - 70px);
+      display:grid;
+      align-items:center;
+      padding:54px 0 42px;
+      position:relative;
+      isolation:isolate;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:28px 0 auto 0;
+      height:55%;
+      z-index:-1;
+      background:
+        linear-gradient(115deg,rgba(15,118,110,.08),transparent 32%),
+        linear-gradient(245deg,rgba(49,93,168,.08),transparent 34%);
+      clip-path:polygon(0 8%,100% 0,100% 74%,0 100%);
+      animation:panelDrift 9s ease-in-out infinite alternate;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.04fr) minmax(340px,.8fr);
+      gap:36px;
+      align-items:center;
+    }
+    .status{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      width:fit-content;
+      padding:7px 12px;
+      border:1px solid rgba(15,118,110,.24);
+      border-radius:999px;
+      color:#0b625b;
+      background:#edf9f0;
+      font-size:13px;
+      font-weight:850;
+      margin-bottom:18px;
+    }
+    .status::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--green);
+      box-shadow:0 0 0 6px rgba(15,118,110,.14);
+    }
+    h1{
+      margin:0;
+      max-width:820px;
+      color:var(--ink);
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:clamp(44px,7.2vw,82px);
+      line-height:1;
+      letter-spacing:0;
+      font-weight:700;
+    }
+    .name-title{
+      max-width:900px;
+      font-size:clamp(58px,9vw,120px);
+      line-height:.9;
+    }
+    .typewriter{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      min-height:36px;
+      margin-top:22px;
+      color:var(--mauve);
+      font-size:clamp(18px,2vw,26px);
+      font-weight:900;
+    }
+    .typed-text{white-space:nowrap}
+    .caret{
+      width:2px;
+      height:1.15em;
+      background:var(--red);
+      animation:blink .8s steps(2,end) infinite;
+    }
+    .lead{
+      max-width:680px;
+      margin:22px 0 0;
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.85;
+    }
+    .tech-rail{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+      margin-top:18px;
+    }
+    .tech-pill{
+      border:1px solid rgba(142,108,128,.16);
+      background:rgba(255,255,255,.46);
+      color:var(--mauve);
+      border-radius:999px;
+      padding:5px 9px;
+      font-size:11px;
+      font-weight:850;
+      box-shadow:none;
+      animation:none;
+    }
+    .tech-pill:nth-child(2){animation-delay:.3s}
+    .tech-pill:nth-child(3){animation-delay:.6s}
+    .tech-pill:nth-child(4){animation-delay:.9s}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+    .hero-actions .btn:not(.primary){
+      min-height:40px;
+      background:transparent;
+      border-color:transparent;
+      box-shadow:none;
+      padding:0 8px;
+      color:var(--mauve);
+    }
+    .proof{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:30px;
+      max-width:760px;
+    }
+    .proof-card{
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:rgba(255,255,255,.76);
+      padding:14px;
+    }
+    .proof-card strong{display:block;color:var(--ink);font-size:25px;line-height:1}
+    .proof-card span{display:block;margin-top:8px;color:var(--muted);font-size:13px;font-weight:700}
+
+    .showcase{
+      border:1px solid var(--line);
+      border-radius:26px;
+      background:#fff;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      transform-style:preserve-3d;
+      transition:transform .18s ease;
+    }
+    .showcase-top{
+      height:42px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:0 15px;
+      border-bottom:1px solid var(--line);
+      background:#f9fbf9;
+    }
+    .dot{width:9px;height:9px;border-radius:50%;background:var(--red)}
+    .dot:nth-child(2){background:var(--yellow)}
+    .dot:nth-child(3){background:var(--green)}
+    .showcase-body{padding:22px}
+    .device{
+      min-height:370px;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+      gap:16px;
+      padding:18px;
+      border:1px solid rgba(24,34,47,.12);
+      border-radius:22px;
+      background:
+        linear-gradient(135deg,#fff6f4 0%,#fbecf0 47%,#eef5ed 100%);
+      position:relative;
+      overflow:hidden;
+    }
+    .device::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.36) 42%,transparent 70%);
+      transform:translateX(-120%);
+      animation:sheen 5.5s ease-in-out infinite;
+      pointer-events:none;
+    }
+    .device-header{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      width:fit-content;
+      padding:6px 9px;
+      border-radius:999px;
+      border:1px solid rgba(24,34,47,.12);
+      background:rgba(255,255,255,.78);
+      color:var(--ink);
+      font-size:12px;
+      font-weight:850;
+    }
+    .mock-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+    .mock-tile{
+      min-height:92px;
+      border:1px solid rgba(24,34,47,.1);
+      border-radius:8px;
+      background:rgba(255,255,255,.7);
+      padding:12px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .mock-line{height:10px;border-radius:999px;background:rgba(24,34,47,.12)}
+    .mock-line.green{width:74%;background:var(--green)}
+    .mock-line.blue{width:56%;background:var(--blue)}
+    .mock-line.red{width:42%;background:var(--red)}
+    .photo-lab{
+      display:grid;
+      grid-template-columns:1fr .9fr;
+      gap:14px;
+      align-items:stretch;
+      position:relative;
+      z-index:1;
+    }
+    .photo-upload{
+      min-height:260px;
+      border:1px dashed rgba(24,34,47,.22);
+      border-radius:24px;
+      background:rgba(255,255,255,.72);
+      display:grid;
+      place-items:center;
+      padding:12px;
+      cursor:pointer;
+      text-align:center;
+      color:var(--ink);
+      font-weight:900;
+    }
+    .photo-upload input{position:absolute;opacity:0;pointer-events:none}
+    .photo-avatar{
+      width:min(220px,100%);
+      height:220px;
+      display:grid;
+      place-items:center;
+      margin:0 auto 10px;
+      border-radius:28px;
+      background:linear-gradient(135deg,var(--mauve),var(--red));
+      color:#fff;
+      overflow:hidden;
+      box-shadow:0 14px 28px rgba(24,34,47,.18);
+      font-size:34px;
+    }
+    .photo-avatar img{
+      width:100%;
+      height:100%;
+      display:none;
+      object-fit:cover;
+    }
+    .photo-avatar.has-photo span{display:none}
+    .photo-avatar.has-photo img{display:block}
+    .upload-note{display:block;color:var(--muted);font-size:12px;font-weight:750;line-height:1.35}
+    .terminal-card{
+      min-height:260px;
+      border:1px solid rgba(24,34,47,.12);
+      border-radius:24px;
+      background:rgba(255,255,255,.68);
+      color:var(--text);
+      padding:18px;
+      font-family:inherit;
+      font-size:14px;
+      line-height:1.65;
+      box-shadow:0 16px 30px rgba(92,62,75,.1);
+    }
+    .terminal-card b{color:var(--mauve)}
+    .terminal-card span{color:var(--green);font-weight:900}
+    .profile-strip{
+      display:grid;
+      grid-template-columns:72px 1fr;
+      gap:14px;
+      align-items:center;
+      border-radius:22px;
+      background:linear-gradient(135deg,var(--ink),#5b4050);
+      color:#fff;
+      padding:16px;
+    }
+    .avatar{
+      width:72px;
+      height:72px;
+      display:grid;
+      place-items:center;
+      border-radius:16px;
+      background:#fff;
+      color:var(--ink);
+      font-size:22px;
+      font-weight:950;
+    }
+    .profile-strip strong{display:block;font-size:17px}
+    .profile-strip span{display:block;color:#cbd7e2;font-size:13px;margin-top:3px}
+
+    section{padding:78px 0;border-top:1px solid rgba(220,228,234,.76)}
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:24px;
+      margin-bottom:25px;
+    }
+    h2{
+      margin:0;
+      max-width:680px;
+      color:var(--ink);
+      font-size:clamp(30px,4.2vw,48px);
+      line-height:1.05;
+      letter-spacing:0;
+    }
+    .section-head p{max-width:540px;margin:0;color:var(--muted)}
+    .filter-bar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:18px;
+    }
+    .filter-btn{
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      color:var(--muted);
+      min-height:36px;
+      padding:0 13px;
+      font-size:13px;
+      font-weight:900;
+      cursor:pointer;
+      box-shadow:0 8px 18px rgba(24,34,47,.05);
+    }
+    .filter-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+
+    .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .work-card{
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:#fff;
+      box-shadow:0 14px 36px rgba(24,34,47,.08);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+    .work-card:hover,.skill-card:hover,.contact-item:hover{transform:translateY(-4px);box-shadow:0 18px 45px rgba(24,34,47,.12);border-color:rgba(15,118,110,.28)}
+    .work-card.is-hidden{display:none}
+    .work-visual{
+      min-height:178px;
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      border-bottom:1px solid var(--line);
+    }
+    .work-card:nth-child(1) .work-visual{background:linear-gradient(135deg,#fff2ef,#eef5ed)}
+    .work-card:nth-child(2) .work-visual{background:linear-gradient(135deg,#fff7e8,#f5d9dc)}
+    .work-card:nth-child(3) .work-visual{background:linear-gradient(135deg,#f2f0fb,#fff2ef)}
+    .work-mini{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .block{height:46px;border-radius:8px;border:1px solid rgba(24,34,47,.1);background:rgba(255,255,255,.72)}
+    .project-preview{
+      position:relative;
+      min-height:164px;
+      border:1px solid rgba(44,38,48,.1);
+      border-radius:20px;
+      overflow:hidden;
+      background:rgba(255,255,255,.58);
+      display:grid;
+      place-items:center;
+    }
+    .project-preview img{
+      width:100%;
+      height:100%;
+      display:none;
+      object-fit:cover;
+      position:absolute;
+      inset:0;
+    }
+    .project-preview iframe{
+      width:100%;
+      height:100%;
+      min-height:164px;
+      border:0;
+      position:absolute;
+      inset:0;
+      background:#fff;
+      transform:scale(.72);
+      transform-origin:top left;
+      width:139%;
+      height:139%;
+      pointer-events:none;
+    }
+    .project-preview.has-image img{display:block}
+    .project-preview.has-image iframe{display:none}
+    .project-preview.has-image .project-upload{opacity:0;transform:translateY(8px)}
+    .project-preview:hover .project-upload{opacity:1;transform:translateY(0)}
+    .project-upload{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      width:100%;
+      min-height:164px;
+      padding:18px;
+      color:var(--ink);
+      text-align:center;
+      cursor:pointer;
+      font-weight:900;
+      background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.74));
+      transition:opacity .2s ease,transform .2s ease;
+    }
+    .project-upload input{position:absolute;opacity:0;pointer-events:none}
+    .project-upload small{color:var(--muted);font-size:12px;font-weight:800}
+    .work-body{padding:18px;display:flex;flex-direction:column;gap:13px;flex:1}
+    .work-body h3{margin:0;color:var(--ink);font-size:21px;line-height:1.2}
+    .work-body p{margin:0;color:var(--muted);font-size:14px}
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+    .tag{border:1px solid var(--line);border-radius:999px;background:#f8faf8;color:#405064;padding:5px 9px;font-size:12px;font-weight:800}
+    .logo-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      min-height:34px;
+      padding:6px 10px;
+    }
+    .tech-logo{
+      width:18px;
+      height:18px;
+      object-fit:contain;
+      flex:0 0 auto;
+    }
+    .link-row{display:flex;gap:10px;flex-wrap:wrap}
+    .text-link{display:inline-flex;align-items:center;gap:6px;color:var(--green);font-size:13px;font-weight:900}
+
+    .two-col{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:start}
+    .panel{
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:rgba(255,255,255,.82);
+      padding:24px;
+      box-shadow:0 12px 34px rgba(24,34,47,.07);
+    }
+    .panel h3{margin:0 0 9px;color:var(--ink);font-size:21px}
+    .panel p{margin:0;color:var(--muted)}
+    .skill-board{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .skill-card{border:1px solid var(--line);border-radius:22px;background:#fff;padding:16px}
+    .skill-card strong{display:block;margin-bottom:10px;color:var(--ink)}
+    .timeline{display:grid;gap:12px;margin-top:18px}
+    .event{
+      display:grid;
+      grid-template-columns:112px 1fr;
+      gap:14px;
+      border-top:1px solid var(--line);
+      padding-top:14px;
+    }
+    .event time{color:var(--green);font-size:13px;font-weight:900}
+    .event strong{display:block;color:var(--ink);line-height:1.35}
+    .event span{display:block;color:var(--muted);font-size:14px;margin-top:3px}
+
+    .gallery-shell{
+      display:grid;
+      grid-template-columns:.82fr 1.18fr;
+      gap:20px;
+      align-items:start;
+    }
+    .gallery-intro{
+      border:1px solid var(--line);
+      border-radius:26px;
+      background:rgba(255,255,255,.72);
+      padding:26px;
+      box-shadow:0 14px 38px rgba(92,62,75,.08);
+    }
+    .gallery-intro h2{font-family:Georgia,"Times New Roman",serif}
+    .gallery-intro p{color:var(--muted)}
+    .gallery-upload{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      width:100%;
+      min-height:48px;
+      margin-top:18px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--mauve),var(--red));
+      color:#fff;
+      font-weight:900;
+      cursor:pointer;
+      box-shadow:0 14px 28px rgba(201,111,126,.22);
+    }
+    .gallery-upload input{position:absolute;opacity:0;pointer-events:none}
+    .gallery-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      grid-auto-rows:168px;
+      gap:12px;
+    }
+    .gallery-card{
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:linear-gradient(135deg,#fff4f2,#f5d9dc);
+      box-shadow:0 14px 36px rgba(92,62,75,.1);
+    }
+    .gallery-card.featured{grid-column:span 2;grid-row:span 2}
+    .gallery-card img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+      transition:transform .5s ease;
+    }
+    .gallery-card:hover img{transform:scale(1.04)}
+    .gallery-placeholder{
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      padding:18px;
+      color:var(--ink);
+      background:
+        linear-gradient(180deg,transparent,rgba(255,255,255,.74)),
+        radial-gradient(circle at 22% 18%,rgba(255,255,255,.9),transparent 26%),
+        linear-gradient(135deg,#fff2ef,#f7dce4 55%,#eef5ed);
+    }
+    .gallery-placeholder strong{font-family:Georgia,"Times New Roman",serif;font-size:22px;line-height:1.1}
+    .gallery-placeholder span{margin-top:6px;color:var(--muted);font-size:13px;font-weight:800}
+    .gallery-remove{
+      position:absolute;
+      top:10px;
+      right:10px;
+      border:0;
+      border-radius:999px;
+      background:rgba(44,38,48,.72);
+      color:#fff;
+      width:30px;
+      height:30px;
+      cursor:pointer;
+    }
+
+    .contact-grid{display:grid;grid-template-columns:.78fr 1.22fr;gap:18px;align-items:stretch}
+    .contact-main{
+      position:relative;
+      min-height:360px;
+      border-radius:32px;
+      background:
+        radial-gradient(circle at 85% 15%,rgba(245,217,220,.92),transparent 24%),
+        radial-gradient(circle at 12% 88%,rgba(238,245,237,.9),transparent 25%),
+        linear-gradient(135deg,#fff,#fff4f2);
+      color:var(--ink);
+      padding:32px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      border:1px solid var(--line);
+      box-shadow:0 18px 45px rgba(92,62,75,.09);
+      overflow:hidden;
+    }
+    .contact-main::after{
+      content:"";
+      position:absolute;
+      right:28px;
+      bottom:24px;
+      width:112px;
+      height:112px;
+      opacity:.34;
+      background:
+        radial-gradient(circle at 50% 13%,#b76f8a 0 18%,transparent 20%),
+        radial-gradient(circle at 87% 50%,#cf879b 0 18%,transparent 20%),
+        radial-gradient(circle at 50% 87%,#b76f8a 0 18%,transparent 20%),
+        radial-gradient(circle at 13% 50%,#cf879b 0 18%,transparent 20%),
+        radial-gradient(circle at 50% 50%,#e7bd76 0 10%,transparent 12%);
+      transform:rotate(18deg);
+    }
+    .contact-main h2{
+      color:var(--ink);
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:clamp(34px,4.5vw,58px);
+      max-width:720px;
+      margin:0;
+    }
+    .contact-main p{max-width:560px;color:var(--muted);font-size:17px}
+    .contact-note{
+      position:relative;
+      z-index:1;
+      width:fit-content;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.76);
+      padding:8px 12px;
+      color:var(--mauve);
+      font-size:13px;
+      font-weight:900;
+    }
+    .contact-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .contact-item{
+      display:flex;
+      min-height:96px;
+      align-items:center;
+      justify-content:space-between;
+      flex-direction:row;
+      gap:12px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      padding:16px;
+      box-shadow:0 10px 28px rgba(92,62,75,.055);
+    }
+    .contact-item:first-child{grid-column:1 / -1;min-height:104px}
+    .contact-item:last-child{grid-column:1 / -1;min-height:78px;background:#fff7f6}
+    .contact-item span{display:block;color:var(--muted);font-size:13px;font-weight:800}
+    .contact-item strong{display:block;color:var(--ink);font-size:17px;line-height:1.25;overflow-wrap:anywhere}
+    .contact-item .btn{
+      width:40px;
+      height:40px;
+      min-height:40px;
+      padding:0;
+      border-radius:13px;
+      box-shadow:none;
+      flex:0 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .contact-icon{
+      width:34px;
+      height:34px;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:12px;
+      background:#fff7f6;
+      border:1px solid var(--line);
+      color:var(--mauve);
+      flex:0 0 auto;
+    }
+    .contact-icon .icon,
+    .contact-item .btn .icon{
+      width:17px;
+      height:17px;
+      display:block;
+      margin:0;
+    }
+    .contact-svg{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+    }
+    .contact-item .btn{position:relative}
+    .contact-meta{display:flex;align-items:center;gap:12px;min-width:0}
+    .message-form{
+      grid-column:1 / -1;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:rgba(255,255,255,.86);
+      padding:20px;
+      box-shadow:0 14px 36px rgba(92,62,75,.07);
+    }
+    .message-form h3{margin:0 0 14px;color:var(--ink);font-size:22px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .message-form label{display:grid;gap:6px;color:var(--muted);font-size:13px;font-weight:850}
+    .message-form input,
+    .message-form textarea{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fffaf9;
+      color:var(--ink);
+      padding:12px 13px;
+      font:inherit;
+      outline:none;
+    }
+    .message-form textarea{min-height:116px;resize:vertical;grid-column:1 / -1}
+    .message-form input:focus,
+    .message-form textarea:focus{border-color:#cf879b;box-shadow:0 0 0 4px rgba(207,135,155,.14)}
+    .form-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
+    .form-status{color:var(--mauve);font-size:13px;font-weight:850}
+    footer{padding:28px 0;color:var(--muted);font-size:14px}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    @keyframes floatSoft{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-5px)}
+    }
+    @keyframes sheen{
+      0%,45%{transform:translateX(-120%)}
+      70%,100%{transform:translateX(120%)}
+    }
+    @keyframes panelDrift{
+      from{transform:translateY(0)}
+      to{transform:translateY(18px)}
+    }
+    @keyframes blink{
+      50%{opacity:0}
+    }
+    @keyframes flowerFall{
+      0%{transform:translate3d(var(--repel-x,0px),calc(-12vh + var(--repel-y,0px)),0) rotate(var(--r)) scale(var(--repel-scale,1))}
+      50%{transform:translate3d(calc(var(--wave) + var(--repel-x,0px)),calc(50vh + var(--repel-y,0px)),0) rotate(calc(var(--r) + 160deg)) scale(var(--repel-scale,1))}
+      100%{transform:translate3d(calc((var(--wave) * -1) + var(--repel-x,0px)),calc(112vh + var(--repel-y,0px)),0) rotate(calc(var(--r) + 320deg)) scale(var(--repel-scale,1))}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}
+      .reveal{opacity:1;transform:none}
+    }
+
+    @media (max-width:920px){
+      .nav-menu{display:none}
+      .hero{min-height:auto}
+      .hero-grid,.two-col,.contact-grid,.gallery-shell{grid-template-columns:1fr}
+      .work-grid{grid-template-columns:1fr}
+      .gallery-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:620px){
+      .container{width:min(100% - 22px,1160px)}
+      .nav-wrap{position:static}
+      .nav{align-items:flex-start;padding:12px 0;min-height:0}
+      .nav-actions{flex-wrap:wrap;justify-content:flex-end}
+      .hero{padding:38px 0 28px}
+      .lead{font-size:16px}
+      .proof,.skill-board{grid-template-columns:1fr}
+      .photo-lab{grid-template-columns:1fr}
+      .gallery-grid{grid-template-columns:1fr;grid-auto-rows:220px}
+      .gallery-card.featured{grid-column:span 1;grid-row:span 1}
+      .section-head{display:block}
+      .section-head p{margin-top:12px}
+      section{padding:52px 0}
+      .event{grid-template-columns:1fr;gap:4px}
+      .contact-item{align-items:flex-start;flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <div class="flower-field" aria-hidden="true">
+    <span class="flower" style="--x:5%;--s:30px;--o:.62;--d:18s;--delay:-2s;--r:18deg;--wave:32px"></span>
+    <span class="flower" style="--x:14%;--s:22px;--o:.48;--d:23s;--delay:-12s;--r:88deg;--wave:46px"></span>
+    <span class="flower" style="--x:24%;--s:34px;--o:.54;--d:20s;--delay:-7s;--r:122deg;--wave:28px"></span>
+    <span class="flower" style="--x:36%;--s:25px;--o:.46;--d:26s;--delay:-16s;--r:44deg;--wave:52px"></span>
+    <span class="flower" style="--x:48%;--s:38px;--o:.4;--d:28s;--delay:-5s;--r:160deg;--wave:40px"></span>
+    <span class="flower" style="--x:61%;--s:26px;--o:.52;--d:21s;--delay:-10s;--r:22deg;--wave:35px"></span>
+    <span class="flower" style="--x:73%;--s:32px;--o:.48;--d:24s;--delay:-18s;--r:75deg;--wave:48px"></span>
+    <span class="flower" style="--x:86%;--s:24px;--o:.54;--d:19s;--delay:-4s;--r:135deg;--wave:30px"></span>
+    <span class="flower" style="--x:94%;--s:36px;--o:.38;--d:30s;--delay:-14s;--r:210deg;--wave:56px"></span>
+  </div>
+  <svg width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="mail" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></symbol>
+    <symbol id="external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="github" viewBox="0 0 24 24"><path d="M9 19c-4 1.5-4-2-5-2.5"/><path d="M15 22v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.3 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.5 11.5 0 0 0-6.2 0C6.6 3.8 5.6 4.1 5.6 4.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.2 10.5c0 4.7 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V22"/></symbol>
+    <symbol id="linkedin" viewBox="0 0 24 24"><path d="M6 9v10"/><path d="M6 5v.01"/><path d="M10 19v-6a4 4 0 0 1 8 0v6"/><path d="M10 13V9"/></symbol>
+    <symbol id="gitlab" viewBox="0 0 24 24"><path d="m3 9 3-6 3 6"/><path d="m15 9 3-6 3 6"/><path d="M3 9h18l-9 11z"/></symbol>
+    <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11z"/><path d="M12 10.5h.01"/></symbol>
+  </svg>
+
+  <header class="nav-wrap">
+    <nav class="container nav" aria-label="Main navigation">
+      <a class="logo" href="#home"><span class="logo-mark" aria-hidden="true"></span><span>Sandria Nuriya</span></a>
+      <div class="nav-menu">
+        <a href="#work" data-i18n="navWork">Proyek</a>
+        <a href="#skills" data-i18n="navSkills">Keahlian</a>
+        <a href="#story" data-i18n="navStory">Aktivitas</a>
+        <a href="#moments" data-i18n="navMoments">Foto</a>
+        <a href="#contact" data-i18n="navContact">Kontak</a>
+      </div>
+      <div class="nav-actions">
+        <div class="lang" aria-label="Language selector">
+          <button class="active" type="button" data-lang="id">ID</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <a class="btn dark" href="mailto:sandrianuriya@gmail.com" data-i18n="navHire">Hubungi</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="status" data-i18n="status">Siap untuk magang, freelance, dan kolaborasi produk</div>
+          <h1 class="name-title">Sandria Nuriya Az Zahra</h1>
+          <div class="typewriter" aria-label="Animated role">
+            <span id="typedText" class="typed-text"></span>
+            <span class="caret"></span>
+          </div>
+          <p class="lead" data-i18n="heroLead">Mahasiswa Teknik Informatika yang suka membangun pengalaman web yang rapi, interaktif, dan mudah digunakan.</p>
+          <div class="tech-rail" aria-label="Tech language">
+            <span class="tech-pill">React</span>
+            <span class="tech-pill">TypeScript</span>
+            <span class="tech-pill">Node.js</span>
+            <span class="tech-pill">Real-time</span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn primary" href="#work" data-i18n="seeWork">Lihat Karya</a>
+            <a class="btn" href="mailto:sandrianuriya@gmail.com"><svg class="icon"><use href="#mail"></use></svg><span data-i18n="emailMe">Email Saya</span></a>
+            <a class="btn" href="https://gitlab.com/sandrianuriya" target="_blank" rel="noreferrer"><svg class="icon"><use href="#external"></use></svg>GitLab</a>
+            <a class="btn" href="https://www.linkedin.com/in/sandrianuriya/" target="_blank" rel="noreferrer"><svg class="icon"><use href="#external"></use></svg>LinkedIn</a>
+          </div>
+          <div class="proof">
+            <div class="proof-card"><strong>3+</strong><span data-i18n="proofProjects">proyek web dan fullstack</span></div>
+            <div class="proof-card"><strong>12</strong><span data-i18n="proofFeatures">fitur inti dikirim untuk KampusGig</span></div>
+            <div class="proof-card"><strong>4</strong><span data-i18n="proofFocus">area fokus: UI, API, real-time, AI</span></div>
+          </div>
+        </div>
+
+        <aside class="showcase" aria-label="Portfolio highlight">
+          <div class="showcase-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="showcase-body">
+            <div class="device">
+              <div class="device-header">
+                <span class="chip">React + Node.js</span>
+                <span class="chip">Product Engineer</span>
+              </div>
+              <div class="photo-lab">
+                <label class="photo-upload owner-only" for="photoInput">
+                  <input id="photoInput" type="file" accept="image/*">
+                  <span class="photo-avatar" id="photoAvatar">
+                    <span>SN</span>
+                    <img id="photoPreview" alt="Foto profil Sandria">
+                  </span>
+                  <span data-i18n="photoTitle">Tambahkan foto profil</span>
+                  <small class="upload-note" data-i18n="photoNote">Pilih foto portrait terbaikmu.</small>
+                </label>
+                <div class="terminal-card" aria-label="Developer profile terminal">
+                  <div><b>Sandria</b> builds digital products with thoughtful UI, reliable APIs, and real-time interactions.</div>
+                  <div><b>Style</b>: calm, clear, collaborative.</div>
+                  <div><b>Focus</b>: React, TypeScript, Node.js, AI integration.</div>
+                </div>
+              </div>
+              <div class="profile-strip">
+                <div class="avatar">SN</div>
+                <div>
+                  <strong>Sandria Nuriya Az Zahra</strong>
+                  <span data-i18n="role">Fullstack Web Developer | Tasikmalaya</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="container">
+        <div class="section-head">
+          <h2 data-i18n="workTitle">Selected work</h2>
+          <p data-i18n="workLead">Beberapa project yang saya bangun dari kebutuhan, fitur, sampai pengalaman pengguna.</p>
+        </div>
+        <div class="filter-bar" aria-label="Filter proyek">
+          <button class="filter-btn active" type="button" data-filter="all" data-i18n="filterAll">Semua</button>
+          <button class="filter-btn" type="button" data-filter="realtime">Real-time</button>
+          <button class="filter-btn" type="button" data-filter="platform" data-i18n="filterPlatform">Platform</button>
+          <button class="filter-btn" type="button" data-filter="ai">AI</button>
+        </div>
+        <div class="work-grid">
+          <article class="work-card" data-category="realtime">
+            <div class="work-visual">
+              <span class="chip">Multiplayer Drawing Game</span>
+              <div class="project-preview" data-project-preview="sketchrush">
+                <iframe src="https://sketchrush-io.vercel.app" title="Preview SketchRush" loading="lazy"></iframe>
+                <img alt="Screenshot SketchRush" data-project-image="sketchrush">
+                <label class="project-upload owner-only">
+                  <input type="file" accept="image/*" data-project-input="sketchrush">
+                  <span data-i18n="addScreenshot">Tambah screenshot</span>
+                  <small data-i18n="screenshotHint">Upload gambar project di sini.</small>
+                </label>
+              </div>
+            </div>
+            <div class="work-body">
+              <h3>SketchRush</h3>
+              <span class="chip" data-i18n="sketchRole">Backend Developer</span>
+              <p data-i18n="sketchDesc">Game menggambar real-time berbasis web dengan room multiplayer, canvas interaktif, backend Express, validasi Zod, dan komunikasi Socket.IO.</p>
+              <div class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Socket.IO</span><span class="tag">Konva</span><span class="tag">Prisma</span></div>
+              <div class="link-row"><a class="text-link" href="https://sketchrush-io.vercel.app" target="_blank" rel="noreferrer"><svg class="icon"><use href="#external"></use></svg>Live Project</a></div>
+            </div>
+          </article>
+
+          <article class="work-card" data-category="platform">
+            <div class="work-visual">
+              <span class="chip">Student Freelance Platform</span>
+              <div class="project-preview" data-project-preview="kampusgig">
+                <iframe src="https://kampusgig-web.vercel.app/" title="Preview KampusGig" loading="lazy"></iframe>
+                <img alt="Screenshot KampusGig" data-project-image="kampusgig">
+                <label class="project-upload owner-only">
+                  <input type="file" accept="image/*" data-project-input="kampusgig">
+                  <span data-i18n="addScreenshot">Tambah screenshot</span>
+                  <small data-i18n="screenshotHint">Upload gambar project di sini.</small>
+                </label>
+              </div>
+            </div>
+            <div class="work-body">
+              <h3>KampusGig</h3>
+              <span class="chip" data-i18n="fullstackRole">Fullstack Developer</span>
+              <p data-i18n="kampusDesc">Platform freelance mahasiswa untuk PKM-K Simbelmawa dengan autentikasi JWT, escrow payment, manajemen proyek, dan implementasi 12 fitur utama.</p>
+              <div class="tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">JWT</span><span class="tag">MySQL</span><span class="tag">REST API</span></div>
+              <div class="link-row"><a class="text-link" href="https://kampusgig-web.vercel.app/" target="_blank" rel="noreferrer"><svg class="icon"><use href="#external"></use></svg>Live Project</a></div>
+            </div>
+          </article>
+
+          <article class="work-card" data-category="ai">
+            <div class="work-visual">
+              <span class="chip">AI Travel Planner</span>
+              <div class="project-preview" data-project-preview="travelplanner">
+                <iframe src="https://travelplanner-web.vercel.app/login.html" title="Preview Travel Planner" loading="lazy"></iframe>
+                <img alt="Screenshot Travel Planner" data-project-image="travelplanner">
+                <label class="project-upload owner-only">
+                  <input type="file" accept="image/*" data-project-input="travelplanner">
+                  <span data-i18n="addScreenshot">Tambah screenshot</span>
+                  <small data-i18n="screenshotHint">Upload gambar project di sini.</small>
+                </label>
+              </div>
+            </div>
+            <div class="work-body">
+              <h3>Travel Planner</h3>
+              <span class="chip" data-i18n="fullstackRole">Fullstack Developer</span>
+              <p data-i18n="travelDesc">Aplikasi perencanaan perjalanan fullstack dengan backend API, web, mobile React Native, deployment Vercel, dan rekomendasi destinasi dari Gemini AI.</p>
+              <div class="tags"><span class="tag">JavaScript</span><span class="tag">Node.js</span><span class="tag">Gemini AI</span><span class="tag">React Native</span><span class="tag">Vercel</span></div>
+              <div class="link-row"><a class="text-link" href="https://travelplanner-web.vercel.app/login.html" target="_blank" rel="noreferrer"><svg class="icon"><use href="#external"></use></svg>Live Project</a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container two-col">
+        <div class="panel">
+          <h2 data-i18n="skillsTitle">Kemampuan teknis yang langsung bisa dipakai di tim.</h2>
+          <p data-i18n="skillsLead">Saya menggabungkan kemampuan frontend, backend, database, dan tooling untuk membangun produk web dari desain sampai deploy.</p>
+        </div>
+        <div class="skill-board">
+          <div class="skill-card"><strong>Frontend</strong><div class="tags">
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="">React</span>
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="">TypeScript</span>
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="">JavaScript</span>
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="">Tailwind</span>
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" alt="">Vite</span>
+            <span class="tag logo-tag"><svg class="tech-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#7f5063" d="M4 5h16l-9 7h9v7H4l9-7H4z"/></svg>Zustand</span>
+          </div></div>
+          <div class="skill-card"><strong>Backend</strong><div class="tags">
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="">Node.js</span>
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="">Express</span>
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original.svg" alt="">Socket.IO</span>
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="">PHP</span>
+            <span class="tag logo-tag"><svg class="tech-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#8e6c80" d="M4 5h16v4H4zm0 5.5h16v4H4zM4 16h16v3H4z"/></svg>REST API</span>
+            <span class="tag logo-tag"><svg class="tech-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#3068b7" d="M12 2 3 7v10l9 5 9-5V7zm0 3.2L17.8 8 12 10.8 6.2 8zm-6 5.3 4.5 2.2v5.2L6 15.3zm12 0v4.8l-4.5 2.6v-5.2z"/></svg>Zod</span>
+          </div></div>
+          <div class="skill-card"><strong>Database</strong><div class="tags">
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="">MySQL</span>
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="">PostgreSQL</span>
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg" alt="">Prisma</span>
+          </div></div>
+          <div class="skill-card"><strong>Tools</strong><div class="tags">
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="">Git</span>
+            <span class="tag logo-tag"><img class="tech-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg" alt="">GitLab</span>
+            <span class="tag logo-tag"><svg class="tech-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#111" d="M12 3 23 21H1z"/></svg>Vercel</span>
+            <span class="tag logo-tag"><svg class="tech-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#7d7fa9" d="M4 7h16v10H4z"/><path fill="#f5d9dc" d="M6 9h12v2H6zm0 4h8v2H6z"/></svg>Thunder Client</span>
+            <span class="tag logo-tag"><svg class="tech-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#2c2630" d="M12 3 4 7.5v9L12 21l8-4.5v-9zm0 4 4.5 2.5L12 12 7.5 9.5z"/></svg>shadcn/ui</span>
+          </div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="story">
+      <div class="container two-col">
+        <div class="panel">
+          <h2 data-i18n="storyTitle">Aktif belajar, membangun, dan berkontribusi.</h2>
+          <p data-i18n="storyLead">Selain mengerjakan proyek, saya terbiasa memegang tanggung jawab organisasi. Ini melatih komunikasi, disiplin, dan kerja tim.</p>
+        </div>
+        <div class="panel">
+          <h3 data-i18n="timelineTitle">Pendidikan dan aktivitas</h3>
+          <div class="timeline">
+            <div class="event"><time>2024 - Now</time><div><strong data-i18n="edu">S1 Teknik Informatika, Universitas Siliwangi</strong><span data-i18n="faculty">Fakultas Teknik</span></div></div>
+            <div class="event"><time>2026</time><div><strong data-i18n="ombus">Bendahara OMBUS Informatika</strong><span data-i18n="ombusDesc">Mengelola koordinasi dan kebutuhan keuangan kegiatan mahasiswa.</span></div></div>
+            <div class="event"><time>2026</time><div><strong>DIGDAYA X Hackathon</strong><span data-i18n="hackDesc">Panitia kegiatan teknologi dan kompetisi.</span></div></div>
+            <div class="event"><time>2024</time><div><strong data-i18n="hima">Divisi Komunitas Himpunan Mahasiswa Informatika</strong><span data-i18n="himaDesc">Berkontribusi pada kegiatan komunitas dan kolaborasi kampus.</span></div></div>
+            <div class="event"><time>2024</time><div><strong data-i18n="cert">Pelatihan Public Speaking untuk Teenager</strong><span>Sekolah Komunikasi Miracle</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="moments">
+      <div class="container gallery-shell">
+        <div class="gallery-intro">
+          <h2 data-i18n="galleryTitle">Momen yang menunjukkan cara saya bekerja dengan orang lain.</h2>
+          <label class="gallery-upload owner-only" for="galleryInput">
+            <input id="galleryInput" type="file" accept="image/*" multiple>
+            <span data-i18n="galleryButton">Tambah Foto Kegiatan</span>
+          </label>
+        </div>
+        <div class="gallery-grid" id="galleryGrid" aria-live="polite">
+          <div class="gallery-card featured">
+            <div class="gallery-placeholder">
+              <strong data-i18n="galleryPlaceholder1">Organisasi & kehidupan kampus</strong>
+              <span data-i18n="galleryPlaceholder1s">Upload foto OMBUS, HIMA, DIGDAYA, atau presentasi.</span>
+            </div>
+          </div>
+          <div class="gallery-card">
+            <div class="gallery-placeholder">
+              <strong data-i18n="galleryPlaceholder2">Foto profil</strong>
+              <span data-i18n="galleryPlaceholder2s">Foto diri yang natural dan profesional.</span>
+            </div>
+          </div>
+          <div class="gallery-card">
+            <div class="gallery-placeholder">
+              <strong data-i18n="galleryPlaceholder3">Momen bersama tim</strong>
+              <span data-i18n="galleryPlaceholder3s">Foto kolaborasi, event, atau kompetisi.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container contact-grid">
+        <div class="contact-main">
+          <div>
+            <h2 data-i18n="contactTitle">Let's create something thoughtful.</h2>
+            <p data-i18n="contactLead">Terbuka untuk internship, junior frontend/fullstack role, freelance, dan kolaborasi produk digital.</p>
+          </div>
+          <div class="contact-note">Available for web, product, and campus-tech collaboration</div>
+        </div>
+        <div class="contact-list">
+          <a class="contact-item" href="mailto:sandrianuriya@gmail.com"><div class="contact-meta"><span class="contact-icon"><svg class="icon contact-svg" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg></span><div><span>Email</span><strong>sandrianuriya@gmail.com</strong></div></div><span class="btn"><svg class="icon contact-svg" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></a>
+          <a class="contact-item" href="tel:+6282111365024"><div class="contact-meta"><span class="contact-icon"><svg class="icon contact-svg" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg></span><div><span>Phone</span><strong>082111365024</strong></div></div><span class="btn"><svg class="icon contact-svg" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></a>
+          <a class="contact-item" href="https://www.linkedin.com/in/sandrianuriya/" target="_blank" rel="noreferrer"><div class="contact-meta"><span class="contact-icon"><svg class="icon contact-svg" viewBox="0 0 24 24"><path d="M6 9v10"/><path d="M6 5v.01"/><path d="M10 19v-6a4 4 0 0 1 8 0v6"/><path d="M10 13V9"/></svg></span><div><span>LinkedIn</span><strong>sandrianuriya</strong></div></div><span class="btn"><svg class="icon contact-svg" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></a>
+          <a class="contact-item" href="https://github.com/sandrianuriyaz" target="_blank" rel="noreferrer"><div class="contact-meta"><span class="contact-icon"><svg class="icon contact-svg" viewBox="0 0 24 24"><path d="M9 19c-4 1.5-4-2-5-2.5"/><path d="M15 22v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.3 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.5 11.5 0 0 0-6.2 0C6.6 3.8 5.6 4.1 5.6 4.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.2 10.5c0 4.7 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V22"/></svg></span><div><span>GitHub</span><strong>sandrianuriyaz</strong></div></div><span class="btn"><svg class="icon contact-svg" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></a>
+          <a class="contact-item" href="https://gitlab.com/sandrianuriya" target="_blank" rel="noreferrer"><div class="contact-meta"><span class="contact-icon"><svg class="icon contact-svg" viewBox="0 0 24 24"><path d="m3 9 3-6 3 6"/><path d="m15 9 3-6 3 6"/><path d="M3 9h18l-9 11z"/></svg></span><div><span>GitLab</span><strong>sandrianuriya</strong></div></div><span class="btn"><svg class="icon contact-svg" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></a>
+          <div class="contact-item"><div class="contact-meta"><span class="contact-icon"><svg class="icon contact-svg" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11z"/><path d="M12 10.5h.01"/></svg></span><div><span>Location</span><strong data-i18n="location">Tasikmalaya, Jawa Barat</strong></div></div></div>
+          <form class="message-form" id="messageForm">
+            <h3 data-i18n="messageTitle">Send a message</h3>
+            <div class="form-grid">
+              <label><span data-i18n="messageName">Nama</span><input name="name" autocomplete="name" required></label>
+              <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+              <label><span data-i18n="messageText">Pesan</span><textarea name="message" required></textarea></label>
+            </div>
+            <div class="form-actions">
+              <span class="form-status" id="messageStatus"></span>
+              <button class="btn primary" type="submit" data-i18n="messageSend">Kirim Pesan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">&copy; <span id="year"></span> Sandria Nuriya Az Zahra. Built for portfolio presentation.</div>
+  </footer>
+
+  <script>
+    const text = {
+      id:{
+        navWork:'Proyek',navSkills:'Keahlian',navStory:'Aktivitas',navMoments:'Foto',navContact:'Kontak',navHire:'Hubungi',
+        status:'Siap untuk magang, freelance, dan kolaborasi produk',
+        heroLead:'Mahasiswa Teknik Informatika yang suka membangun pengalaman web yang rapi, interaktif, dan mudah digunakan.',
+        typing:['Fullstack Web Developer','React & TypeScript Enthusiast','Product-minded Developer','Active in Campus Organizations'],
+        seeWork:'Lihat Karya',emailMe:'Email Saya',
+        photoTitle:'Tambahkan foto profil',photoNote:'Pilih foto portrait terbaikmu.',
+        proofProjects:'proyek web dan fullstack',proofFeatures:'fitur inti dikirim untuk KampusGig',proofFocus:'area fokus: UI, API, real-time, AI',
+        role:'Fullstack Web Developer | Tasikmalaya',
+        workTitle:'Selected work',
+        workLead:'Beberapa project yang saya bangun dari kebutuhan, fitur, sampai pengalaman pengguna.',
+        filterAll:'Semua',filterPlatform:'Platform',
+        addScreenshot:'Tambah screenshot',screenshotHint:'Upload gambar project di sini.',
+        sketchRole:'Backend Developer',fullstackRole:'Fullstack Developer',
+        sketchDesc:'Game menggambar real-time berbasis web dengan room multiplayer, canvas interaktif, backend Express, validasi Zod, dan komunikasi Socket.IO.',
+        kampusDesc:'Platform freelance mahasiswa untuk PKM-K Simbelmawa dengan autentikasi JWT, escrow payment, manajemen proyek, dan implementasi 12 fitur utama.',
+        travelDesc:'Aplikasi perencanaan perjalanan fullstack dengan backend API, web, mobile React Native, deployment Vercel, dan rekomendasi destinasi dari Gemini AI.',
+        skillsTitle:'Kemampuan teknis yang langsung bisa dipakai di tim.',
+        skillsLead:'Saya menggabungkan kemampuan frontend, backend, database, dan tooling untuk membangun produk web dari desain sampai deploy.',
+        storyTitle:'Aktif belajar, membangun, dan berkontribusi.',
+        storyLead:'Selain mengerjakan proyek, saya terbiasa memegang tanggung jawab organisasi. Ini melatih komunikasi, disiplin, dan kerja tim.',
+        timelineTitle:'Pendidikan dan aktivitas',
+        edu:'S1 Teknik Informatika, Universitas Siliwangi',faculty:'Fakultas Teknik',
+        ombus:'Bendahara OMBUS Informatika',ombusDesc:'Mengelola koordinasi dan kebutuhan keuangan kegiatan mahasiswa.',
+        hackDesc:'Panitia kegiatan teknologi dan kompetisi.',
+        hima:'Divisi Komunitas Himpunan Mahasiswa Informatika',himaDesc:'Berkontribusi pada kegiatan komunitas dan kolaborasi kampus.',
+        cert:'Pelatihan Public Speaking untuk Teenager',
+        galleryTitle:'Momen yang menunjukkan cara saya bekerja dengan orang lain.',
+        galleryButton:'Tambah Foto Kegiatan',
+        galleryPlaceholder1:'Organisasi & kehidupan kampus',
+        galleryPlaceholder1s:'Upload foto OMBUS, HIMA, DIGDAYA, atau presentasi.',
+        galleryPlaceholder2:'Foto profil',
+        galleryPlaceholder2s:'Foto diri yang natural dan profesional.',
+        galleryPlaceholder3:'Momen bersama tim',
+        galleryPlaceholder3s:'Foto kolaborasi, event, atau kompetisi.',
+        contactTitle:"Let's create something thoughtful.",
+        contactLead:'Terbuka untuk internship, junior frontend/fullstack role, freelance, dan kolaborasi produk digital.',
+        messageTitle:'Send a message',
+        messageName:'Nama',
+        messageText:'Pesan',
+        messageSend:'Kirim Pesan',
+        messageSending:'Mengirim pesan...',
+        messageSuccess:'Pesan terkirim. Terima kasih!',
+        messageError:'Pesan belum terkirim. Coba lagi lewat email ya.',
+        sendEmail:'Kirim Email',
+        location:'Tasikmalaya, Jawa Barat'
+      },
+      en:{
+        navWork:'Projects',navSkills:'Skills',navStory:'Activities',navMoments:'Photos',navContact:'Contact',navHire:'Contact',
+        status:'Open for internships, freelance work, and product collaboration',
+        heroLead:'An Informatics Engineering student who enjoys building clean, interactive, and easy-to-use web experiences.',
+        typing:['Fullstack Web Developer','React & TypeScript Enthusiast','Product-minded Developer','Active in Campus Organizations'],
+        seeWork:'View Work',emailMe:'Email Me',
+        photoTitle:'Add profile photo',photoNote:'Choose your best portrait.',
+        proofProjects:'web and fullstack projects',proofFeatures:'core features shipped for KampusGig',proofFocus:'focus areas: UI, API, real-time, AI',
+        role:'Fullstack Web Developer | Tasikmalaya',
+        workTitle:'Selected work',
+        workLead:'A few projects I built across requirements, features, and user experience.',
+        filterAll:'All',filterPlatform:'Platform',
+        addScreenshot:'Add screenshot',screenshotHint:'Upload your project image here.',
+        sketchRole:'Backend Developer',fullstackRole:'Fullstack Developer',
+        sketchDesc:'A real-time web drawing game with multiplayer rooms, interactive canvas, Express backend, Zod validation, and Socket.IO communication.',
+        kampusDesc:'A student freelance platform for PKM-K Simbelmawa with JWT authentication, escrow payment, project management, and 12 core features.',
+        travelDesc:'A fullstack travel planning app with backend API, web, React Native mobile version, Vercel deployment, and Gemini AI destination recommendations.',
+        skillsTitle:'Technical skills ready for team workflows.',
+        skillsLead:'I combine frontend, backend, database, and tooling skills to build web products from interface to deployment.',
+        storyTitle:'Actively learning, building, and contributing.',
+        storyLead:'Beyond projects, I am used to holding organizational responsibilities. It trains communication, discipline, and teamwork.',
+        timelineTitle:'Education and activities',
+        edu:'B.Sc. Informatics Engineering, Universitas Siliwangi',faculty:'Faculty of Engineering',
+        ombus:'Treasurer, OMBUS Informatika',ombusDesc:'Managed coordination and financial needs for student activities.',
+        hackDesc:'Committee member for technology events and competition.',
+        hima:'Community Division, Informatics Student Association',himaDesc:'Contributed to community programs and campus collaboration.',
+        cert:'Public Speaking Training for Teenagers',
+        galleryTitle:'Moments that show how I work with people.',
+        galleryButton:'Add Activity Photos',
+        galleryPlaceholder1:'Organization & campus life',
+        galleryPlaceholder1s:'Upload OMBUS, HIMA, DIGDAYA, or presentation photos.',
+        galleryPlaceholder2:'Profile portrait',
+        galleryPlaceholder2s:'A natural and professional personal photo.',
+        galleryPlaceholder3:'Team moments',
+        galleryPlaceholder3s:'Collaboration, event, or competition photos.',
+        contactTitle:"Let's create something thoughtful.",
+        contactLead:'Open to internships, junior frontend/fullstack roles, freelance work, and digital product collaboration.',
+        messageTitle:'Send a message',
+        messageName:'Name',
+        messageText:'Message',
+        messageSend:'Send Message',
+        messageSending:'Sending message...',
+        messageSuccess:'Message sent. Thank you!',
+        messageError:'Message was not sent. Please try email instead.',
+        sendEmail:'Send Email',
+        location:'Tasikmalaya, West Java'
+      }
+    };
+
+    let activeLang = 'id';
+    let typingIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    let typingTimer;
+
+    function setLang(lang){
+      activeLang = lang;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach((node) => {
+        node.textContent = text[lang][node.dataset.i18n];
+      });
+      document.querySelectorAll('[data-lang]').forEach((button) => {
+        button.classList.toggle('active', button.dataset.lang === lang);
+      });
+      restartTyping();
+    }
+
+    function typeLoop(){
+      const typedText = document.getElementById('typedText');
+      const words = text[activeLang].typing;
+      const current = words[typingIndex % words.length];
+      typedText.textContent = current.slice(0, charIndex);
+
+      if (!deleting && charIndex < current.length) {
+        charIndex += 1;
+        typingTimer = setTimeout(typeLoop, 72);
+        return;
+      }
+      if (!deleting && charIndex === current.length) {
+        deleting = true;
+        typingTimer = setTimeout(typeLoop, 1200);
+        return;
+      }
+      if (deleting && charIndex > 0) {
+        charIndex -= 1;
+        typingTimer = setTimeout(typeLoop, 36);
+        return;
+      }
+      deleting = false;
+      typingIndex += 1;
+      typingTimer = setTimeout(typeLoop, 220);
+    }
+
+    function restartTyping(){
+      clearTimeout(typingTimer);
+      typingIndex = 0;
+      charIndex = 0;
+      deleting = false;
+      typeLoop();
+    }
+
+    document.querySelectorAll('[data-lang]').forEach((button) => {
+      button.addEventListener('click', () => setLang(button.dataset.lang));
+    });
+    restartTyping();
+
+    let ownerPin = sessionStorage.getItem('sandria-owner-pin') || '';
+    let backendMedia = null;
+    const setOwnerMode = (enabled) => {
+      document.body.classList.toggle('owner-mode', enabled);
+      if (enabled) {
+        sessionStorage.setItem('sandria-owner-mode', 'true');
+      } else {
+        sessionStorage.removeItem('sandria-owner-mode');
+        sessionStorage.removeItem('sandria-owner-pin');
+        ownerPin = '';
+      }
+    };
+    setOwnerMode(sessionStorage.getItem('sandria-owner-mode') === 'true');
+    const requestOwnerMode = async () => {
+      if (document.body.classList.contains('owner-mode')) {
+        setOwnerMode(false);
+        return;
+      }
+      const pin = prompt('Masukkan PIN owner');
+      if (!pin) return;
+      const isValid = await api.verify(pin).catch(() => false);
+      if (isValid) {
+        ownerPin = pin;
+        sessionStorage.setItem('sandria-owner-pin', pin);
+        setOwnerMode(true);
+        return;
+      }
+      alert('PIN salah atau backend belum aktif.');
+    };
+    if (new URLSearchParams(location.search).has('owner')) requestOwnerMode();
+    window.addEventListener('keydown', (event) => {
+      if (event.altKey && event.shiftKey && event.key.toLowerCase() === 'o') requestOwnerMode();
+    });
+
+    const api = {
+      async media(){
+        const response = await fetch('/api/media');
+        if (!response.ok) throw new Error('Backend belum aktif.');
+        return response.json();
+      },
+      async verify(pin){
+        const response = await fetch('/api/verify', {
+          method:'POST',
+          headers:{'content-type':'application/json'},
+          body:JSON.stringify({pin})
+        });
+        return response.ok;
+      },
+      async upload({type, project, file}){
+        const form = new FormData();
+        form.append('pin', ownerPin);
+        form.append('type', type);
+        if (project) form.append('project', project);
+        form.append('file', file);
+        const response = await fetch('/api/upload', {method:'POST', body:form});
+        if (!response.ok) throw new Error('Upload backend gagal.');
+        return response.json();
+      },
+      async deleteGallery(url){
+        const filename = url.split('/').pop();
+        const response = await fetch(`/api/gallery/${encodeURIComponent(filename)}?pin=${encodeURIComponent(ownerPin)}`, {method:'DELETE'});
+        if (!response.ok) throw new Error('Hapus foto backend gagal.');
+        return response.json();
+      },
+      async message(payload){
+        const response = await fetch('/api/message', {
+          method:'POST',
+          headers:{'content-type':'application/json'},
+          body:JSON.stringify(payload)
+        });
+        if (!response.ok) throw new Error('Pesan gagal dikirim.');
+        return response.json();
+      }
+    };
+
+    const messageForm = document.getElementById('messageForm');
+    const messageStatus = document.getElementById('messageStatus');
+    messageForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const form = new FormData(messageForm);
+      const payload = {
+        name: form.get('name'),
+        email: form.get('email'),
+        message: form.get('message'),
+      };
+      messageStatus.textContent = text[activeLang].messageSending;
+
+      try {
+        await api.message(payload);
+        messageStatus.textContent = text[activeLang].messageSuccess;
+        messageForm.reset();
+      } catch (error) {
+        messageStatus.textContent = text[activeLang].messageError;
+        const subject = encodeURIComponent(`Portfolio message from ${payload.name}`);
+        const body = encodeURIComponent(`${payload.message}\n\nFrom: ${payload.name}\nEmail: ${payload.email}`);
+        window.location.href = `mailto:sandrianuriya@gmail.com?subject=${subject}&body=${body}`;
+      }
+    });
+
+    const flowerField = document.querySelector('.flower-field');
+    const extraFlowers = [
+      [9,28,.46,27,-21,12,58],[19,18,.5,16,-8,66,34],[29,27,.42,31,-25,142,44],
+      [41,21,.44,22,-13,198,30],[55,30,.5,25,-19,92,52],[67,20,.48,17,-6,250,38],
+      [78,28,.44,29,-22,320,46],[91,19,.5,20,-11,172,34],[3,23,.4,24,-17,280,42],
+      [33,18,.46,18,-4,34,28],[70,35,.34,32,-28,118,62],[82,23,.48,21,-15,218,36]
+    ];
+    extraFlowers.forEach(([x,size,opacity,duration,delay,rotate,wave]) => {
+      const flower = document.createElement('span');
+      flower.className = 'flower';
+      flower.style.cssText = `--x:${x}%;--s:${size}px;--o:${opacity};--d:${duration}s;--delay:${delay}s;--r:${rotate}deg;--wave:${wave}px`;
+      flowerField.appendChild(flower);
+    });
+
+    const flowers = [...document.querySelectorAll('.flower')];
+    const resetFlowers = () => {
+      flowers.forEach((flower) => {
+        flower.style.setProperty('--repel-x', '0px');
+        flower.style.setProperty('--repel-y', '0px');
+        flower.style.setProperty('--repel-scale', '1');
+      });
+    };
+    window.addEventListener('pointermove', (event) => {
+      flowers.forEach((flower) => {
+        const rect = flower.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const dx = centerX - event.clientX;
+        const dy = centerY - event.clientY;
+        const distance = Math.hypot(dx, dy);
+        const radius = 150;
+
+        if (distance < radius) {
+          const force = (radius - distance) / radius;
+          const angle = Math.atan2(dy, dx);
+          flower.style.setProperty('--repel-x', `${Math.cos(angle) * force * 72}px`);
+          flower.style.setProperty('--repel-y', `${Math.sin(angle) * force * 72}px`);
+          flower.style.setProperty('--repel-scale', `${1 + force * .35}`);
+        } else {
+          flower.style.setProperty('--repel-x', '0px');
+          flower.style.setProperty('--repel-y', '0px');
+          flower.style.setProperty('--repel-scale', '1');
+        }
+      });
+    });
+    window.addEventListener('pointerleave', resetFlowers);
+
+    const revealItems = document.querySelectorAll('.hero > .container, section .container, .work-card, .skill-card, .event, .gallery-card, .contact-item');
+    revealItems.forEach((item) => item.classList.add('reveal'));
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.14});
+    revealItems.forEach((item) => revealObserver.observe(item));
+
+    const showcase = document.querySelector('.showcase');
+    showcase.addEventListener('pointermove', (event) => {
+      const rect = showcase.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - .5;
+      const y = (event.clientY - rect.top) / rect.height - .5;
+      showcase.style.transform = `perspective(900px) rotateX(${y * -7}deg) rotateY(${x * 8}deg)`;
+    });
+    showcase.addEventListener('pointerleave', () => {
+      showcase.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+    });
+
+    const photoInput = document.getElementById('photoInput');
+    const photoPreview = document.getElementById('photoPreview');
+    const photoAvatar = document.getElementById('photoAvatar');
+    const setProfilePhoto = (image) => {
+      photoPreview.src = image;
+      photoAvatar.classList.add('has-photo');
+    };
+    const savedPhoto = localStorage.getItem('sandria-profile-photo');
+    if (savedPhoto) setProfilePhoto(savedPhoto);
+    photoInput.addEventListener('change', () => {
+      const file = photoInput.files[0];
+      if (!file || !file.type.startsWith('image/')) return;
+      if (ownerPin) {
+        api.upload({type:'profile', file})
+          .then((result) => setProfilePhoto(result.url))
+          .catch(() => {
+            const reader = new FileReader();
+            reader.addEventListener('load', () => setProfilePhoto(reader.result));
+            reader.readAsDataURL(file);
+          });
+        return;
+      }
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        setProfilePhoto(reader.result);
+        try {
+          localStorage.setItem('sandria-profile-photo', reader.result);
+        } catch (error) {
+          console.info('Photo preview is too large for local storage.');
+        }
+      });
+      reader.readAsDataURL(file);
+    });
+
+    const setProjectImage = (project, image) => {
+      const preview = document.querySelector(`[data-project-preview="${project}"]`);
+      const img = document.querySelector(`[data-project-image="${project}"]`);
+      if (!preview || !img) return;
+      img.src = image;
+      preview.classList.add('has-image');
+    };
+    document.querySelectorAll('[data-project-input]').forEach((input) => {
+      const project = input.dataset.projectInput;
+      const saved = localStorage.getItem(`sandria-project-${project}`);
+      if (saved) setProjectImage(project, saved);
+
+      input.addEventListener('change', () => {
+        const file = input.files[0];
+        if (!file || !file.type.startsWith('image/')) return;
+        if (ownerPin) {
+          api.upload({type:'project', project, file})
+            .then((result) => setProjectImage(project, result.url))
+            .catch(() => {
+              const reader = new FileReader();
+              reader.addEventListener('load', () => setProjectImage(project, reader.result));
+              reader.readAsDataURL(file);
+            });
+          return;
+        }
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+          setProjectImage(project, reader.result);
+          try {
+            localStorage.setItem(`sandria-project-${project}`, reader.result);
+          } catch (error) {
+            console.info('Project screenshot is too large for local storage.');
+          }
+        });
+        reader.readAsDataURL(file);
+      });
+    });
+
+    api.media()
+      .then((media) => {
+        backendMedia = media;
+        if (media.profile) setProfilePhoto(media.profile);
+        Object.entries(media.projects || {}).forEach(([project, url]) => setProjectImage(project, url));
+        if (media.gallery?.length) renderGallery(media.gallery);
+      })
+      .catch(() => {
+        backendMedia = null;
+      });
+
+    const galleryInput = document.getElementById('galleryInput');
+    const galleryGrid = document.getElementById('galleryGrid');
+    const renderGallery = (photos) => {
+      if (!photos.length) return;
+      galleryGrid.innerHTML = photos.map((photo, index) => `
+        <figure class="gallery-card ${index === 0 ? 'featured' : ''}">
+          <img src="${photo}" alt="Foto kegiatan Sandria ${index + 1}">
+          <button class="gallery-remove owner-only" type="button" data-remove-photo="${index}" aria-label="Hapus foto">x</button>
+        </figure>
+      `).join('');
+      document.querySelectorAll('[data-remove-photo]').forEach((button) => {
+        button.addEventListener('click', async () => {
+          if (ownerPin && backendMedia) {
+            try {
+              const result = await api.deleteGallery(photos[Number(button.dataset.removePhoto)]);
+              backendMedia = result.media;
+              renderGallery(backendMedia.gallery);
+              return;
+            } catch (error) {
+              console.info(error.message);
+            }
+          }
+          const current = JSON.parse(localStorage.getItem('sandria-gallery-photos') || '[]');
+          current.splice(Number(button.dataset.removePhoto), 1);
+          localStorage.setItem('sandria-gallery-photos', JSON.stringify(current));
+          if (current.length) {
+            renderGallery(current);
+          } else {
+            location.reload();
+          }
+        });
+      });
+    };
+    const savedGallery = JSON.parse(localStorage.getItem('sandria-gallery-photos') || '[]');
+    renderGallery(savedGallery);
+    galleryInput.addEventListener('change', () => {
+      const files = [...galleryInput.files].filter((file) => file.type.startsWith('image/')).slice(0, 9);
+      if (!files.length) return;
+      if (ownerPin) {
+        Promise.all(files.map((file) => api.upload({type:'gallery', file})))
+          .then((results) => {
+            backendMedia = results.at(-1).media;
+            renderGallery(backendMedia.gallery);
+          })
+          .catch((error) => console.info(error.message));
+        return;
+      }
+      Promise.all(files.map((file) => new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => resolve(reader.result));
+        reader.readAsDataURL(file);
+      }))).then((newPhotos) => {
+        const current = JSON.parse(localStorage.getItem('sandria-gallery-photos') || '[]');
+        const next = [...current, ...newPhotos].slice(0, 9);
+        try {
+          localStorage.setItem('sandria-gallery-photos', JSON.stringify(next));
+        } catch (error) {
+          console.info('Some gallery photos are too large for local storage.');
+        }
+        renderGallery(next);
+      });
+    });
+
+    document.querySelectorAll('[data-filter]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+        document.querySelectorAll('[data-filter]').forEach((item) => item.classList.toggle('active', item === button));
+        document.querySelectorAll('.work-card').forEach((card) => {
+          card.classList.toggle('is-hidden', filter !== 'all' && card.dataset.category !== filter);
+        });
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

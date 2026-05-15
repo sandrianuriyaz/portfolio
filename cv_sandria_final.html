@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portofolio Sandria Nuriya Az Zahra, mahasiswa Teknik Informatika yang membangun aplikasi fullstack, real-time, dan AI.">
+  <title>Sandria Nuriya Az Zahra | Fullstack Web Portfolio</title>
+  <style>
+    :root{
+      --ink:#13202f;
+      --muted:#607184;
+      --line:#d9e2ec;
+      --paper:#fbfcf8;
+      --white:#ffffff;
+      --teal:#0e7c74;
+      --mint:#d7f0df;
+      --blue:#2952a3;
+      --coral:#ef775c;
+      --gold:#f4c95d;
+      --shadow:0 18px 50px rgba(19,32,47,.12);
+      --radius:8px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--ink);
+      background:
+        linear-gradient(90deg,rgba(19,32,47,.035) 1px,transparent 1px) 0 0/42px 42px,
+        linear-gradient(180deg,#f7fbf9 0%,var(--paper) 42%,#f6f4ee 100%);
+      line-height:1.6;
+    }
+
+    a{color:inherit;text-decoration:none}
+    button,a{touch-action:manipulation}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .container{width:min(1120px,calc(100% - 32px));margin:0 auto}
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter:blur(16px);
+      background:rgba(251,252,248,.84);
+      border-bottom:1px solid rgba(217,226,236,.75);
+    }
+    .nav{
+      min-height:68px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:0}
+    .mark{
+      width:38px;
+      height:38px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:linear-gradient(135deg,var(--teal),var(--blue));
+      border-radius:8px;
+      box-shadow:0 10px 24px rgba(14,124,116,.25);
+      font-size:14px;
+    }
+    .navlinks{display:flex;align-items:center;gap:4px;color:var(--muted);font-size:14px;font-weight:650}
+    .navlinks a{padding:8px 10px;border-radius:7px}
+    .navlinks a:hover{background:#eef5f1;color:var(--ink)}
+    .actions{display:flex;align-items:center;gap:8px}
+    .lang{
+      display:flex;
+      padding:3px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#fff;
+    }
+    .lang button{
+      border:0;
+      min-width:38px;
+      height:30px;
+      border-radius:6px;
+      background:transparent;
+      color:var(--muted);
+      font-weight:800;
+      cursor:pointer;
+    }
+    .lang button.active{background:var(--ink);color:#fff}
+    .icon-btn,.btn{
+      border:1px solid var(--line);
+      min-height:40px;
+      border-radius:8px;
+      background:#fff;
+      color:var(--ink);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      font-size:14px;
+      font-weight:800;
+      cursor:pointer;
+      box-shadow:0 7px 20px rgba(19,32,47,.06);
+    }
+    .btn{padding:0 16px}
+    .icon-btn{width:40px}
+    .btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
+    .btn.accent{background:var(--teal);border-color:var(--teal);color:#fff}
+    .btn:hover,.icon-btn:hover{transform:translateY(-1px)}
+    .icon{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+
+    .hero{
+      min-height:calc(100vh - 68px);
+      display:grid;
+      align-items:center;
+      padding:54px 0 38px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.04fr) minmax(330px,.72fr);
+      gap:34px;
+      align-items:center;
+    }
+    .eyebrow{
+      width:fit-content;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid rgba(14,124,116,.22);
+      background:#effaf4;
+      color:#0a665f;
+      border-radius:999px;
+      padding:7px 12px;
+      font-size:13px;
+      font-weight:800;
+      margin-bottom:18px;
+    }
+    .pulse{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 6px rgba(14,124,116,.14)}
+    h1{
+      margin:0;
+      max-width:790px;
+      font-size:clamp(42px,7vw,82px);
+      line-height:.96;
+      letter-spacing:0;
+    }
+    .lead{
+      max-width:690px;
+      margin:24px 0 0;
+      color:var(--muted);
+      font-size:18px;
+    }
+    .hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+    .quick{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:30px;
+      max-width:720px;
+    }
+    .quick-item{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.74);
+      border-radius:8px;
+      padding:14px;
+    }
+    .quick-item strong{display:block;font-size:22px;line-height:1.1}
+    .quick-item span{display:block;margin-top:5px;color:var(--muted);font-size:13px;font-weight:650}
+
+    .profile-panel{
+      position:relative;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:8px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .profile-art{
+      min-height:520px;
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      background:
+        radial-gradient(circle at 78% 15%,rgba(239,119,92,.2),transparent 28%),
+        radial-gradient(circle at 20% 86%,rgba(14,124,116,.18),transparent 30%),
+        linear-gradient(145deg,#ffffff 0%,#f4fbf7 54%,#eef3fb 100%);
+    }
+    .window{
+      border:1px solid rgba(19,32,47,.12);
+      background:rgba(255,255,255,.82);
+      border-radius:8px;
+      overflow:hidden;
+      box-shadow:0 18px 35px rgba(19,32,47,.1);
+    }
+    .window-top{
+      height:36px;
+      display:flex;
+      align-items:center;
+      gap:7px;
+      padding:0 12px;
+      border-bottom:1px solid rgba(19,32,47,.09);
+    }
+    .dot{width:9px;height:9px;border-radius:50%;background:var(--coral)}
+    .dot:nth-child(2){background:var(--gold)}
+    .dot:nth-child(3){background:var(--teal)}
+    .code{padding:18px;font-family:"SFMono-Regular",Consolas,monospace;font-size:13px;color:#26425b;line-height:1.75}
+    .code b{color:var(--teal);font-weight:800}
+    .code em{color:var(--blue);font-style:normal}
+    .portrait{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      align-items:center;
+      gap:14px;
+      padding:18px;
+      border:1px solid rgba(19,32,47,.11);
+      background:rgba(19,32,47,.94);
+      color:#fff;
+      border-radius:8px;
+    }
+    .avatar{
+      width:74px;
+      height:74px;
+      display:grid;
+      place-items:center;
+      border-radius:18px;
+      background:linear-gradient(135deg,var(--mint),#fff);
+      color:var(--ink);
+      font-size:22px;
+      font-weight:900;
+    }
+    .portrait strong{display:block;font-size:18px}
+    .portrait span{display:block;color:#c5d2df;font-size:13px;margin-top:3px}
+
+    section{padding:72px 0;border-top:1px solid rgba(217,226,236,.72)}
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:24px;
+      margin-bottom:24px;
+    }
+    h2{margin:0;font-size:clamp(28px,4vw,44px);line-height:1.05;letter-spacing:0}
+    .section-head p{max-width:530px;margin:0;color:var(--muted)}
+
+    .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .project{
+      display:flex;
+      flex-direction:column;
+      min-height:100%;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#fff;
+      overflow:hidden;
+      box-shadow:0 14px 36px rgba(19,32,47,.08);
+    }
+    .shot{
+      min-height:166px;
+      padding:15px;
+      display:grid;
+      align-content:end;
+      gap:9px;
+      background:#eff5f8;
+      border-bottom:1px solid var(--line);
+    }
+    .project:nth-child(1) .shot{background:linear-gradient(135deg,#e9faf2,#eaf0fb)}
+    .project:nth-child(2) .shot{background:linear-gradient(135deg,#fff4df,#eaf7f2)}
+    .project:nth-child(3) .shot{background:linear-gradient(135deg,#edf4ff,#fff1ec)}
+    .bars{display:grid;gap:7px}
+    .bar{height:12px;border-radius:99px;background:rgba(19,32,47,.12)}
+    .bar:nth-child(1){width:82%;background:var(--teal)}
+    .bar:nth-child(2){width:64%;background:var(--blue)}
+    .bar:nth-child(3){width:46%;background:var(--coral)}
+    .mini-ui{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .tile{height:42px;border-radius:8px;background:rgba(255,255,255,.72);border:1px solid rgba(19,32,47,.1)}
+    .project-body{padding:18px;display:flex;flex-direction:column;gap:12px;flex:1}
+    .project h3{margin:0;font-size:20px;line-height:1.2}
+    .project p{margin:0;color:var(--muted);font-size:14px}
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+    .tag{border:1px solid var(--line);background:#f8faf9;border-radius:999px;padding:5px 9px;color:#405367;font-size:12px;font-weight:750}
+    .project-links{display:flex;gap:8px;flex-wrap:wrap}
+    .small-link{display:inline-flex;align-items:center;gap:6px;color:var(--teal);font-size:13px;font-weight:850}
+
+    .split{display:grid;grid-template-columns:.9fr 1.1fr;gap:26px;align-items:start}
+    .panel{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.8);
+      border-radius:8px;
+      padding:22px;
+      box-shadow:0 12px 35px rgba(19,32,47,.06);
+    }
+    .panel h3{margin:0 0 10px;font-size:20px}
+    .panel p{margin:0;color:var(--muted)}
+    .skill-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .skill-card{border:1px solid var(--line);background:#fff;border-radius:8px;padding:16px}
+    .skill-card strong{display:block;margin-bottom:10px}
+    .skill-list{display:flex;flex-wrap:wrap;gap:7px}
+    .timeline{display:grid;gap:12px;margin-top:18px}
+    .event{display:grid;grid-template-columns:112px 1fr;gap:16px;border-top:1px solid var(--line);padding-top:14px}
+    .event time{color:var(--teal);font-size:13px;font-weight:850}
+    .event strong{display:block;line-height:1.35}
+    .event span{display:block;color:var(--muted);font-size:14px;margin-top:3px}
+
+    .contact{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .contact-card{
+      border-radius:8px;
+      padding:28px;
+      border:1px solid rgba(19,32,47,.14);
+      background:var(--ink);
+      color:#fff;
+      min-height:310px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .contact-card p{color:#cbd8e4;max-width:620px}
+    .contact-list{display:grid;gap:10px}
+    .contact-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:8px;
+      padding:14px;
+    }
+    .contact-row span{color:var(--muted);font-size:13px;display:block}
+    .contact-row strong{font-size:14px;overflow-wrap:anywhere}
+    footer{padding:28px 0;color:var(--muted);font-size:14px}
+
+    @media (max-width:900px){
+      .navlinks{display:none}
+      .hero{min-height:auto}
+      .hero-grid,.split,.contact{grid-template-columns:1fr}
+      .profile-art{min-height:430px}
+      .project-grid{grid-template-columns:1fr}
+      .skill-groups{grid-template-columns:1fr}
+    }
+
+    @media (max-width:620px){
+      .container{width:min(100% - 22px,1120px)}
+      .topbar{position:static}
+      .nav{align-items:flex-start;padding:12px 0;min-height:0}
+      .actions{flex-wrap:wrap;justify-content:flex-end}
+      .btn{padding:0 12px;font-size:13px}
+      .hero{padding:34px 0 24px}
+      .lead{font-size:16px}
+      .quick{grid-template-columns:1fr}
+      .section-head{display:block}
+      .section-head p{margin-top:12px}
+      section{padding:48px 0}
+      .event{grid-template-columns:1fr;gap:4px}
+      .contact-row{align-items:flex-start;flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <svg class="sr-only" aria-hidden="true">
+    <symbol id="mail" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></symbol>
+    <symbol id="github" viewBox="0 0 24 24"><path d="M9 19c-4 1.5-4-2-5-2.5"/><path d="M15 22v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.3 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.5 11.5 0 0 0-6.2 0C6.6 3.8 5.6 4.1 5.6 4.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.2 10.5c0 4.7 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V22"/></symbol>
+    <symbol id="external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="print" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6z"/></symbol>
+    <symbol id="copy" viewBox="0 0 24 24"><path d="M8 8h12v12H8z"/><path d="M4 16V4h12"/></symbol>
+  </svg>
+
+  <header class="topbar">
+    <nav class="container nav" aria-label="Navigasi utama">
+      <a class="brand" href="#home" aria-label="Sandria Nuriya">
+        <span class="mark">SN</span>
+        <span>Sandria Nuriya</span>
+      </a>
+      <div class="navlinks">
+        <a href="#projects" data-i18n="navProjects">Proyek</a>
+        <a href="#skills" data-i18n="navSkills">Keahlian</a>
+        <a href="#experience" data-i18n="navExperience">Pengalaman</a>
+        <a href="#contact" data-i18n="navContact">Kontak</a>
+      </div>
+      <div class="actions">
+        <div class="lang" aria-label="Pilih bahasa">
+          <button class="active" type="button" data-lang="id">ID</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <button class="icon-btn" type="button" onclick="window.print()" aria-label="Cetak portofolio">
+          <svg class="icon"><use href="#print"></use></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="pulse"></span><span data-i18n="eyebrow">Tersedia untuk magang, freelance, dan kolaborasi produk</span></div>
+          <h1 data-i18n="heroTitle">Fullstack developer muda yang membangun produk web cepat, rapi, dan siap dipakai.</h1>
+          <p class="lead" data-i18n="heroLead">Saya Sandria, mahasiswa Teknik Informatika Universitas Siliwangi. Saya fokus pada React, TypeScript, Node.js, real-time app, dan integrasi AI untuk membuat pengalaman digital yang jelas, stabil, dan berguna bagi pengguna.</p>
+          <div class="hero-cta">
+            <a class="btn primary" href="mailto:sandrianuriya@gmail.com">
+              <svg class="icon"><use href="#mail"></use></svg>
+              <span data-i18n="ctaEmail">Hubungi Saya</span>
+            </a>
+            <a class="btn" href="#projects" data-i18n="ctaProjects">Lihat Proyek</a>
+            <a class="btn accent" href="https://gitlab.com/sandrianuriya" target="_blank" rel="noreferrer">
+              <svg class="icon"><use href="#external"></use></svg>
+              GitLab
+            </a>
+          </div>
+          <div class="quick" aria-label="Ringkasan portfolio">
+            <div class="quick-item"><strong>3+</strong><span data-i18n="statProjects">proyek fullstack unggulan</span></div>
+            <div class="quick-item"><strong>12</strong><span data-i18n="statFeatures">fitur utama dikirim di KampusGig</span></div>
+            <div class="quick-item"><strong>2024</strong><span data-i18n="statSince">aktif membangun dan berorganisasi</span></div>
+          </div>
+        </div>
+
+        <aside class="profile-panel" aria-label="Highlight profil Sandria">
+          <div class="profile-art">
+            <div class="window">
+              <div class="window-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+              <div class="code">
+                <div><b>const</b> candidate = {</div>
+                <div>&nbsp;&nbsp;role: <em>"Fullstack Web Developer"</em>,</div>
+                <div>&nbsp;&nbsp;stack: [<em>"React"</em>, <em>"Node.js"</em>, <em>"TypeScript"</em>],</div>
+                <div>&nbsp;&nbsp;strength: <em>"fast learner + product-minded"</em></div>
+                <div>};</div>
+              </div>
+            </div>
+            <div class="portrait">
+              <div class="avatar">SN</div>
+              <div>
+                <strong>Sandria Nuriya Az Zahra</strong>
+                <span data-i18n="role">Mahasiswa Teknik Informatika | Tasikmalaya</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-head">
+          <h2 data-i18n="projectsTitle">Proyek yang menunjukkan cara saya membangun.</h2>
+          <p data-i18n="projectsLead">Saya memilih proyek yang punya tantangan nyata: sinkronisasi real-time, autentikasi, pembayaran escrow, dan rekomendasi berbasis AI.</p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project">
+            <div class="shot" aria-hidden="true">
+              <div class="mini-ui"><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span></div>
+              <div class="bars"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+            </div>
+            <div class="project-body">
+              <h3>SketchRush</h3>
+              <p data-i18n="p1">Game menggambar multiplayer berbasis web dengan canvas interaktif, room real-time, validasi backend, dan state management yang ringan.</p>
+              <div class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Socket.IO</span><span class="tag">Konva</span><span class="tag">Zod</span></div>
+              <div class="project-links">
+                <a class="small-link" href="https://gitlab.com/sandrianuriya/sketchrush-backend" target="_blank" rel="noreferrer"><svg class="icon"><use href="#external"></use></svg>GitLab</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="shot" aria-hidden="true">
+              <div class="bars"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+              <div class="mini-ui"><span class="tile"></span><span class="tile"></span></div>
+            </div>
+            <div class="project-body">
+              <h3>KampusGig</h3>
+              <p data-i18n="p2">Platform freelance mahasiswa untuk PKM-K Simbelmawa dengan autentikasi JWT, sistem escrow, manajemen proyek, dan 12 fitur inti.</p>
+              <div class="tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">JWT</span><span class="tag">MySQL</span><span class="tag">REST API</span></div>
+              <div class="project-links">
+                <a class="small-link" href="https://gitlab.com/sandrianuriya/kampusgig-web" target="_blank" rel="noreferrer"><svg class="icon"><use href="#external"></use></svg>GitLab</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="shot" aria-hidden="true">
+              <div class="mini-ui"><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span></div>
+              <div class="bars"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+            </div>
+            <div class="project-body">
+              <h3>Travel Planner</h3>
+              <p data-i18n="p3">Aplikasi perencanaan perjalanan fullstack dengan backend API, versi mobile React Native, dan rekomendasi destinasi memakai Gemini AI.</p>
+              <div class="tags"><span class="tag">JavaScript</span><span class="tag">Node.js</span><span class="tag">Gemini AI</span><span class="tag">React Native</span><span class="tag">Vercel</span></div>
+              <div class="project-links">
+                <a class="small-link" href="https://travelplanner-dun.vercel.app" target="_blank" rel="noreferrer"><svg class="icon"><use href="#external"></use></svg>Live Demo</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container split">
+        <div class="panel">
+          <h2 data-i18n="skillsTitle">Stack yang siap masuk tim produk.</h2>
+          <p data-i18n="skillsLead">Saya nyaman bekerja dari UI sampai API, dengan perhatian pada struktur komponen, validasi data, deployment, dan pengalaman pengguna yang mudah dipahami.</p>
+        </div>
+        <div class="skill-groups">
+          <div class="skill-card"><strong>Frontend</strong><div class="skill-list"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">JavaScript</span><span class="tag">Tailwind CSS</span><span class="tag">Vite</span><span class="tag">Zustand</span></div></div>
+          <div class="skill-card"><strong>Backend</strong><div class="skill-list"><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">Socket.IO</span><span class="tag">PHP</span><span class="tag">REST API</span><span class="tag">Zod</span></div></div>
+          <div class="skill-card"><strong>Database</strong><div class="skill-list"><span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">Prisma</span></div></div>
+          <div class="skill-card"><strong>Tools</strong><div class="skill-list"><span class="tag">Git</span><span class="tag">GitLab</span><span class="tag">Vercel</span><span class="tag">Thunder Client</span><span class="tag">shadcn/ui</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container split">
+        <div class="panel">
+          <h2 data-i18n="expTitle">Bukan hanya coding, saya juga terbiasa bekerja dalam tim.</h2>
+          <p data-i18n="expLead">Pengalaman organisasi membantu saya mengelola komunikasi, tanggung jawab, acara, dan ritme kerja yang melibatkan banyak orang.</p>
+        </div>
+        <div class="panel">
+          <h3 data-i18n="educationTitle">Pendidikan &amp; Aktivitas</h3>
+          <div class="timeline">
+            <div class="event"><time>2024 - Now</time><div><strong data-i18n="edu1">S1 Teknik Informatika, Universitas Siliwangi</strong><span data-i18n="edu1s">Fakultas Teknik, Tasikmalaya</span></div></div>
+            <div class="event"><time>2026</time><div><strong data-i18n="org1">Bendahara OMBUS Informatika</strong><span data-i18n="org1s">Mengelola kebutuhan keuangan dan koordinasi kegiatan mahasiswa.</span></div></div>
+            <div class="event"><time>2026</time><div><strong>DIGDAYA X Hackathon</strong><span data-i18n="org2s">Panitia kegiatan teknologi dan kompetisi.</span></div></div>
+            <div class="event"><time>2024</time><div><strong data-i18n="org3">Divisi Komunitas Himpunan Mahasiswa Informatika</strong><span data-i18n="org3s">Aktif membangun relasi, kegiatan komunitas, dan kolaborasi kampus.</span></div></div>
+            <div class="event"><time>2024</time><div><strong data-i18n="cert">Pelatihan Public Speaking untuk Teenager</strong><span>Sekolah Komunikasi Miracle</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container contact">
+        <div class="contact-card">
+          <div>
+            <h2 data-i18n="contactTitle">Mari bicarakan peluang kerja, magang, atau proyek.</h2>
+            <p data-i18n="contactLead">Saya terbuka untuk role frontend, fullstack, web developer intern, dan proyek yang membutuhkan developer muda yang cepat belajar.</p>
+          </div>
+          <div class="hero-cta">
+            <a class="btn accent" href="mailto:sandrianuriya@gmail.com"><svg class="icon"><use href="#mail"></use></svg><span data-i18n="sendEmail">Kirim Email</span></a>
+            <a class="btn" href="https://github.com/sandrianuriyaz" target="_blank" rel="noreferrer"><svg class="icon"><use href="#github"></use></svg>GitHub</a>
+          </div>
+        </div>
+        <div class="contact-list">
+          <div class="contact-row"><div><span>Email</span><strong id="email">sandrianuriya@gmail.com</strong></div><button class="icon-btn" type="button" data-copy="sandrianuriya@gmail.com" aria-label="Salin email"><svg class="icon"><use href="#copy"></use></svg></button></div>
+          <div class="contact-row"><div><span>Phone</span><strong>082111365024</strong></div><a class="icon-btn" href="tel:+6282111365024" aria-label="Telepon Sandria"><svg class="icon"><use href="#external"></use></svg></a></div>
+          <div class="contact-row"><div><span>GitLab</span><strong>gitlab.com/sandrianuriya</strong></div><a class="icon-btn" href="https://gitlab.com/sandrianuriya" target="_blank" rel="noreferrer" aria-label="Buka GitLab"><svg class="icon"><use href="#external"></use></svg></a></div>
+          <div class="contact-row"><div><span>Location</span><strong data-i18n="location">Tasikmalaya, Jawa Barat</strong></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">&copy; <span id="year"></span> Sandria Nuriya Az Zahra. Built with HTML, CSS, and JavaScript.</div>
+  </footer>
+
+  <script>
+    const copy = {
+      id: {
+        navProjects:'Proyek', navSkills:'Keahlian', navExperience:'Pengalaman', navContact:'Kontak',
+        eyebrow:'Tersedia untuk magang, freelance, dan kolaborasi produk',
+        heroTitle:'Fullstack developer muda yang membangun produk web cepat, rapi, dan siap dipakai.',
+        heroLead:'Saya Sandria, mahasiswa Teknik Informatika Universitas Siliwangi. Saya fokus pada React, TypeScript, Node.js, real-time app, dan integrasi AI untuk membuat pengalaman digital yang jelas, stabil, dan berguna bagi pengguna.',
+        ctaEmail:'Hubungi Saya', ctaProjects:'Lihat Proyek',
+        statProjects:'proyek fullstack unggulan', statFeatures:'fitur utama dikirim di KampusGig', statSince:'aktif membangun dan berorganisasi',
+        role:'Mahasiswa Teknik Informatika | Tasikmalaya',
+        projectsTitle:'Proyek yang menunjukkan cara saya membangun.',
+        projectsLead:'Saya memilih proyek yang punya tantangan nyata: sinkronisasi real-time, autentikasi, pembayaran escrow, dan rekomendasi berbasis AI.',
+        p1:'Game menggambar multiplayer berbasis web dengan canvas interaktif, room real-time, validasi backend, dan state management yang ringan.',
+        p2:'Platform freelance mahasiswa untuk PKM-K Simbelmawa dengan autentikasi JWT, sistem escrow, manajemen proyek, dan 12 fitur inti.',
+        p3:'Aplikasi perencanaan perjalanan fullstack dengan backend API, versi mobile React Native, dan rekomendasi destinasi memakai Gemini AI.',
+        skillsTitle:'Stack yang siap masuk tim produk.',
+        skillsLead:'Saya nyaman bekerja dari UI sampai API, dengan perhatian pada struktur komponen, validasi data, deployment, dan pengalaman pengguna yang mudah dipahami.',
+        expTitle:'Bukan hanya coding, saya juga terbiasa bekerja dalam tim.',
+        expLead:'Pengalaman organisasi membantu saya mengelola komunikasi, tanggung jawab, acara, dan ritme kerja yang melibatkan banyak orang.',
+        educationTitle:'Pendidikan & Aktivitas',
+        edu1:'S1 Teknik Informatika, Universitas Siliwangi', edu1s:'Fakultas Teknik, Tasikmalaya',
+        org1:'Bendahara OMBUS Informatika', org1s:'Mengelola kebutuhan keuangan dan koordinasi kegiatan mahasiswa.',
+        org2s:'Panitia kegiatan teknologi dan kompetisi.',
+        org3:'Divisi Komunitas Himpunan Mahasiswa Informatika', org3s:'Aktif membangun relasi, kegiatan komunitas, dan kolaborasi kampus.',
+        cert:'Pelatihan Public Speaking untuk Teenager',
+        contactTitle:'Mari bicarakan peluang kerja, magang, atau proyek.',
+        contactLead:'Saya terbuka untuk role frontend, fullstack, web developer intern, dan proyek yang membutuhkan developer muda yang cepat belajar.',
+        sendEmail:'Kirim Email',
+        location:'Tasikmalaya, Jawa Barat'
+      },
+      en: {
+        navProjects:'Projects', navSkills:'Skills', navExperience:'Experience', navContact:'Contact',
+        eyebrow:'Available for internships, freelance work, and product collaboration',
+        heroTitle:'A young fullstack developer building fast, clean, and usable web products.',
+        heroLead:'I am Sandria, an Informatics Engineering student at Universitas Siliwangi. I focus on React, TypeScript, Node.js, real-time apps, and AI integration to create digital experiences that are clear, stable, and useful.',
+        ctaEmail:'Contact Me', ctaProjects:'View Projects',
+        statProjects:'featured fullstack projects', statFeatures:'core features shipped in KampusGig', statSince:'active in building and organizations',
+        role:'Informatics Engineering Student | Tasikmalaya',
+        projectsTitle:'Projects that show how I build.',
+        projectsLead:'I chose projects with real engineering challenges: real-time sync, authentication, escrow payment, and AI-based recommendations.',
+        p1:'A web-based multiplayer drawing game with interactive canvas, real-time rooms, backend validation, and lightweight state management.',
+        p2:'A student freelance platform for PKM-K Simbelmawa with JWT authentication, escrow payments, project management, and 12 core features.',
+        p3:'A fullstack travel planning app with backend API, React Native mobile version, and destination recommendations powered by Gemini AI.',
+        skillsTitle:'A stack ready for product teams.',
+        skillsLead:'I am comfortable working from UI to API, with attention to component structure, data validation, deployment, and understandable user experience.',
+        expTitle:'Beyond coding, I am used to working in teams.',
+        expLead:'Organizational experience helps me manage communication, ownership, events, and collaborative work rhythms.',
+        educationTitle:'Education & Activities',
+        edu1:'B.Sc. Informatics Engineering, Universitas Siliwangi', edu1s:'Faculty of Engineering, Tasikmalaya',
+        org1:'Treasurer, OMBUS Informatika', org1s:'Managed event finances and student activity coordination.',
+        org2s:'Committee member for technology events and competition.',
+        org3:'Community Division, Informatics Student Association', org3s:'Active in campus community programs, relationships, and collaboration.',
+        cert:'Public Speaking Training for Teenagers',
+        contactTitle:"Let's talk about work, internships, or projects.",
+        contactLead:'I am open to frontend, fullstack, web developer intern roles, and projects that need a fast-learning junior developer.',
+        sendEmail:'Send Email',
+        location:'Tasikmalaya, West Java'
+      }
+    };
+
+    const setLang = (lang) => {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach((node) => {
+        node.textContent = copy[lang][node.dataset.i18n];
+      });
+      document.querySelectorAll('[data-lang]').forEach((button) => {
+        button.classList.toggle('active', button.dataset.lang === lang);
+      });
+    };
+
+    document.querySelectorAll('[data-lang]').forEach((button) => {
+      button.addEventListener('click', () => setLang(button.dataset.lang));
+    });
+
+    document.querySelectorAll('[data-copy]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        await navigator.clipboard.writeText(button.dataset.copy);
+        button.setAttribute('aria-label', 'Email tersalin');
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
