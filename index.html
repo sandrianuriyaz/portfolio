@@ -1196,6 +1196,12 @@
         </div>
         <div class="gallery-grid" id="galleryGrid" aria-live="polite">
           <div class="gallery-card featured">
+            <div class="gallery-placeholder">
+              <strong data-i18n="galleryPlaceholder1">Organisasi & kehidupan kampus</strong>
+              <span data-i18n="galleryPlaceholder1s">Upload foto OMBUS, HIMA, DIGDAYA, atau presentasi.</span>
+            </div>
+          </div>
+          <div class="gallery-card">
             <img src="assets/miracle-public-speaking.jpg" alt="Sandria saat sekolah public speaking di Sekolah Komunikasi Miracle">
             <figcaption>
               Public Speaking
@@ -1682,7 +1688,7 @@
       if (!photos.length) return;
       const galleryPhotos = [...defaultGalleryPhotos, ...photos.map((photo) => ({src:photo}))];
       galleryGrid.innerHTML = galleryPhotos.map((photo, index) => `
-        <figure class="gallery-card ${index === 0 ? 'featured' : ''}">
+        <figure class="gallery-card">
           <img src="${assetUrl(photo.src)}" alt="${photo.alt || `Foto kegiatan Sandria ${index + 1}`}">
           ${photo.title ? `<figcaption>${photo.title}<span>${photo.meta}</span></figcaption>` : ''}
           ${photo.locked ? '' : `<button class="gallery-remove owner-only" type="button" data-remove-photo="${index - defaultGalleryPhotos.length}" aria-label="Hapus foto">x</button>`}
